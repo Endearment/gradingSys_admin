@@ -42,7 +42,7 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             studentName = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            section = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            student_number = new Guna.UI2.WinForms.Guna2HtmlLabel();
             chk_hair = new Guna.UI2.WinForms.Guna2CheckBox();
             chk_uniform = new Guna.UI2.WinForms.Guna2CheckBox();
             chk_makeup = new Guna.UI2.WinForms.Guna2CheckBox();
@@ -78,15 +78,15 @@
             studentName.TabIndex = 0;
             studentName.Text = "-------------------------------";
             // 
-            // section
+            // student_number
             // 
-            section.BackColor = Color.Transparent;
-            section.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            section.Location = new Point(275, 95);
-            section.Name = "section";
-            section.Size = new Size(115, 27);
-            section.TabIndex = 1;
-            section.Text = "----------------";
+            student_number.BackColor = Color.Transparent;
+            student_number.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            student_number.Location = new Point(275, 95);
+            student_number.Name = "student_number";
+            student_number.Size = new Size(115, 27);
+            student_number.TabIndex = 1;
+            student_number.Text = "----------------";
             // 
             // chk_hair
             // 
@@ -279,6 +279,7 @@
             guna2Button1.Size = new Size(138, 51);
             guna2Button1.TabIndex = 17;
             guna2Button1.Text = "Apply";
+            guna2Button1.Click += guna2Button1_Click;
             // 
             // guna2Button2
             // 
@@ -344,7 +345,7 @@
             Controls.Add(chk_makeup);
             Controls.Add(chk_uniform);
             Controls.Add(chk_hair);
-            Controls.Add(section);
+            Controls.Add(student_number);
             Controls.Add(studentName);
             FormBorderStyle = FormBorderStyle.None;
             Name = "aptitudeEdit";
@@ -360,7 +361,7 @@
 
         private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
         private Guna.UI2.WinForms.Guna2HtmlLabel studentName;
-        private Guna.UI2.WinForms.Guna2HtmlLabel section;
+        private Guna.UI2.WinForms.Guna2HtmlLabel student_number;
         private Guna.UI2.WinForms.Guna2CheckBox chk_earrings;
         private Guna.UI2.WinForms.Guna2CheckBox chk_facial;
         private Guna.UI2.WinForms.Guna2CheckBox chk_tardiness;

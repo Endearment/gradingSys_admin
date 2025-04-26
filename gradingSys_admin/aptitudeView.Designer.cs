@@ -56,7 +56,6 @@
             guna2Button1.Size = new Size(184, 48);
             guna2Button1.TabIndex = 5;
             guna2Button1.Text = "View Aptitude";
-            guna2Button1.Click += guna2Button1_Click;
             // 
             // guna2ComboBox1
             // 
@@ -127,6 +126,7 @@
             guna2DataGridView1.ThemeStyle.RowsStyle.Height = 33;
             guna2DataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
             guna2DataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            guna2DataGridView1.CellContentClick += guna2DataGridView1_CellContentClick;
             // 
             // aptitudeView
             // 
