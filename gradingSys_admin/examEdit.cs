@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace gradingSys_admin
 {
-    public partial class gradeEdit : Form
+    public partial class examEdit : Form
     {
-        public gradeEdit()
+        public examEdit()
         {
             InitializeComponent();
             this.TopMost = true;

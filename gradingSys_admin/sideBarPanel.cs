@@ -104,7 +104,7 @@ namespace GradingSys_SIA
 
         private void label3_Click(object sender, EventArgs e)
         {
-            loadform(new gradeView());
+            loadform(new examView());
         }
 
         private void label13_Click(object sender, EventArgs e)

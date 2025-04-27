@@ -25,23 +25,23 @@ namespace gradingSys_admin
             LoadData();
         }
 
-		private void OpenAptitudeEdit(string cadetId)
-		{
-			Form? mainForm = FormHelper.GetTopMostForm(this);
-			if (mainForm != null)
-			{
-				aptitudeEdit editForm = new aptitudeEdit();
-				editForm.CadetId = cadetId; 
-				FormHelper.ShowDialogWithBackdrop(mainForm, editForm);
-			}
-			else
-			{
-				MessageBox.Show("Unable to determine the top-most form.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-		}
+        private void OpenAptitudeEdit(string cadetId)
+        {
+            Form? mainForm = FormHelper.GetTopMostForm(this);
+            if (mainForm != null)
+            {
+                aptitudeEdit editForm = new aptitudeEdit();
+                editForm.CadetId = cadetId;
+                FormHelper.ShowDialogWithBackdrop(mainForm, editForm);
+            }
+            else
+            {
+                MessageBox.Show("Unable to determine the top-most form.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
 
-		private void guna2ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void guna2ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
@@ -64,7 +64,7 @@ namespace gradingSys_admin
                         editButton.HeaderText = "Action";
                         editButton.Text = "Edit";
                         editButton.UseColumnTextForButtonValue = true;
-                        editButton.DefaultCellStyle.BackColor = Color.LightSkyBlue;
+                        editButton.DefaultCellStyle.BackColor = Color.Lavender;
                         editButton.DefaultCellStyle.ForeColor = Color.Black;
                         editButton.FlatStyle = FlatStyle.Flat;
                         guna2DataGridView1.Columns.Add(editButton);
@@ -79,19 +79,29 @@ namespace gradingSys_admin
 
         private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-			if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "editButton" && e.RowIndex >= 0)
-			{
-				object? cellValue = guna2DataGridView1.Rows[e.RowIndex].Cells["cadet_id"].Value;
-				if (cellValue != null)
-				{
-					string cadetId = cellValue.ToString()!;
-					OpenAptitudeEdit(cadetId);
-				}
-				else
-				{
-					MessageBox.Show("Cadet ID is missing.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				}
-			}
-		}
+            if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "editButton" && e.RowIndex >= 0)
+            {
+                object? cellValue = guna2DataGridView1.Rows[e.RowIndex].Cells["cadet_id"].Value;
+                if (cellValue != null)
+                {
+                    string cadetId = cellValue.ToString()!;
+                    OpenAptitudeEdit(cadetId);
+                }
+                else
+                {
+                    MessageBox.Show("Cadet ID is missing.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2HtmlLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

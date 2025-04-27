@@ -65,11 +65,11 @@
             label2.ForeColor = Color.White;
             label2.Image = (Image)resources.GetObject("label2.Image");
             label2.ImageAlign = ContentAlignment.MiddleLeft;
-            label2.Location = new Point(0, 451);
+            label2.Location = new Point(0, 523);
             label2.Name = "label2";
             label2.Size = new Size(262, 48);
             label2.TabIndex = 1;
-            label2.Text = "            Attendance";
+            label2.Text = "            Grade";
             label2.TextAlign = ContentAlignment.MiddleLeft;
             label2.Click += label2_Click;
             // 
@@ -78,7 +78,7 @@
             label3.ForeColor = Color.White;
             label3.Image = (Image)resources.GetObject("label3.Image");
             label3.ImageAlign = ContentAlignment.MiddleLeft;
-            label3.Location = new Point(0, 526);
+            label3.Location = new Point(0, 450);
             label3.Name = "label3";
             label3.Size = new Size(262, 48);
             label3.TabIndex = 2;
@@ -157,6 +157,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(75, 83, 32);
+            panel1.Controls.Add(label2);
             panel1.Controls.Add(label13);
             panel1.Controls.Add(label12);
             panel1.Controls.Add(label6);
@@ -164,7 +165,6 @@
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 43);
