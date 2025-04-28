@@ -99,42 +99,59 @@ namespace gradingSys_admin
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-			int haircutDemerit = chk_hair.Checked ? -1 : 0;
-			int uniformDemerit = chk_uniform.Checked ? -1 : 0;
-			int makeupDemerit = chk_makeup.Checked ? -1 : 0;
-			int earringsDemerit = chk_earrings.Checked ? -1 : 0;
-			int facialHairDemerit = chk_facial.Checked ? -1 : 0;
-			int tardinessDemerit = chk_tardiness.Checked ? -1 : 0;
 
-			using (MySqlConnection conn = Dbconnection.GetConnection())
-			{
+            int haircutDemerit = chk_hair.Checked ? -1 : 0;
+            int uniformDemerit = chk_uniform.Checked ? -1 : 0;
+            int makeupDemerit = chk_makeup.Checked ? -1 : 0;
+            int earringsDemerit = chk_earrings.Checked ? -1 : 0;
+            int facialHairDemerit = chk_facial.Checked ? -1 : 0;
+            int tardinessDemerit = chk_tardiness.Checked ? -1 : 0;
 
-				conn.ChangeDatabase("grading_db");
 
-				string query = @"INSERT INTO aptitude 
-                (ID, Student_ID, Haircut_Demerits, Uniform_Demerits, Makeup_Demerits, Earrings_Demerits, Facial_Hair_Demerits, Tardiness_Demerits, Attitude_Demerits, Total_Demerits)
+            int totalDemerits = haircutDemerit + uniformDemerit + makeupDemerit +
+                               earringsDemerit + facialHairDemerit + tardinessDemerit;
+
+            int aptitudePoints = 100 - Math.Abs(totalDemerits);
+
+            try
+            {
+                using (MySqlConnection conn = Dbconnection.GetConnection())
+                {
+                    conn.ChangeDatabase("grading_db");
+
+                    string query = @"INSERT INTO aptitude 
+                (ID, Student_ID, Haircut_Demerits, Uniform_Demerits, Makeup_Demerits, 
+                 Earrings_Demerits, Facial_Hair_Demerits, Tardiness_Demerits, 
+                 Attitude_Demerits, Total_Demerits)
                 VALUES 
-                (UUID(), @studentId, @haircut, @uniform, @makeup, @earrings, @facialHair, @tardiness, 0, @totalDemerits)";
+                (UUID(), @studentId, @haircut, @uniform, @makeup, @earrings, 
+                 @facialHair, @tardiness, 0, @totalDemerits)";
 
-				using (MySqlCommand cmd = new MySqlCommand(query, conn))
-				{
-					cmd.Parameters.AddWithValue("@studentId", CadetId);
-					cmd.Parameters.AddWithValue("@haircut", haircutDemerit);
-					cmd.Parameters.AddWithValue("@uniform", uniformDemerit);
-					cmd.Parameters.AddWithValue("@makeup", makeupDemerit);
-					cmd.Parameters.AddWithValue("@earrings", earringsDemerit);
-					cmd.Parameters.AddWithValue("@facialHair", facialHairDemerit);
-					cmd.Parameters.AddWithValue("@tardiness", tardinessDemerit);
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@studentId", CadetId);
+                        cmd.Parameters.AddWithValue("@haircut", haircutDemerit);
+                        cmd.Parameters.AddWithValue("@uniform", uniformDemerit);
+                        cmd.Parameters.AddWithValue("@makeup", makeupDemerit);
+                        cmd.Parameters.AddWithValue("@earrings", earringsDemerit);
+                        cmd.Parameters.AddWithValue("@facialHair", facialHairDemerit);
+                        cmd.Parameters.AddWithValue("@tardiness", tardinessDemerit);
+                        cmd.Parameters.AddWithValue("@totalDemerits", totalDemerits);
 
-					int total = haircutDemerit + uniformDemerit + makeupDemerit + earringsDemerit + facialHairDemerit + tardinessDemerit;
-					cmd.Parameters.AddWithValue("@totalDemerits", total);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
 
-					cmd.ExecuteNonQuery();
-				}
-			}
-
-			MessageBox.Show("Data saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Close();
-		}
+                MessageBox.Show("Data saved successfully!", "Success",
+                              MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving data: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+   
     }
 }
