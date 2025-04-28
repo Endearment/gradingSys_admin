@@ -12,6 +12,7 @@ namespace gradingSys_admin
 {
     public partial class examEdit : Form
     {
+        public string CadetId { get; set; } = string.Empty;
         public examEdit()
         {
             InitializeComponent();
