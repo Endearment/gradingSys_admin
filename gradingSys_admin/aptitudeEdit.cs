@@ -18,6 +18,7 @@ namespace gradingSys_admin
     public partial class aptitudeEdit : Form
     {
         public string CadetId { get; set; } = string.Empty;
+        public string StudentID { get; set; } = string.Empty;
         public aptitudeEdit()
         {
             InitializeComponent();
@@ -99,19 +100,15 @@ namespace gradingSys_admin
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-
-            int haircutDemerit = chk_hair.Checked ? -1 : 0;
-            int uniformDemerit = chk_uniform.Checked ? -1 : 0;
-            int makeupDemerit = chk_makeup.Checked ? -1 : 0;
-            int earringsDemerit = chk_earrings.Checked ? -1 : 0;
-            int facialHairDemerit = chk_facial.Checked ? -1 : 0;
-            int tardinessDemerit = chk_tardiness.Checked ? -1 : 0;
-
+            int haircutDemerit = chk_hair.Checked ? 1 : 0;
+            int uniformDemerit = chk_uniform.Checked ? 1 : 0;
+            int makeupDemerit = chk_makeup.Checked ? 1 : 0;
+            int earringsDemerit = chk_earrings.Checked ? 1 : 0;
+            int facialHairDemerit = chk_facial.Checked ? 1 : 0;
+            int tardinessDemerit = chk_tardiness.Checked ? 1 : 0;
 
             int totalDemerits = haircutDemerit + uniformDemerit + makeupDemerit +
-                               earringsDemerit + facialHairDemerit + tardinessDemerit;
-
-            int aptitudePoints = 100 - Math.Abs(totalDemerits);
+                                earringsDemerit + facialHairDemerit + tardinessDemerit;
 
             try
             {
@@ -119,39 +116,65 @@ namespace gradingSys_admin
                 {
                     conn.ChangeDatabase("grading_db");
 
-                    string query = @"INSERT INTO aptitude 
-                (ID, Student_ID, Haircut_Demerits, Uniform_Demerits, Makeup_Demerits, 
-                 Earrings_Demerits, Facial_Hair_Demerits, Tardiness_Demerits, 
-                 Attitude_Demerits, Total_Demerits)
-                VALUES 
-                (UUID(), @studentId, @haircut, @uniform, @makeup, @earrings, 
-                 @facialHair, @tardiness, 0, @totalDemerits)";
+                    int currentPoints = 100;
+                    string getPointsQuery = "SELECT Aptitude_Points FROM aptitude WHERE Student_ID = @studentId";
 
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    using (MySqlCommand getPointsCmd = new MySqlCommand(getPointsQuery, conn))
                     {
-                        cmd.Parameters.AddWithValue("@studentId", CadetId);
-                        cmd.Parameters.AddWithValue("@haircut", haircutDemerit);
-                        cmd.Parameters.AddWithValue("@uniform", uniformDemerit);
-                        cmd.Parameters.AddWithValue("@makeup", makeupDemerit);
-                        cmd.Parameters.AddWithValue("@earrings", earringsDemerit);
-                        cmd.Parameters.AddWithValue("@facialHair", facialHairDemerit);
-                        cmd.Parameters.AddWithValue("@tardiness", tardinessDemerit);
-                        cmd.Parameters.AddWithValue("@totalDemerits", totalDemerits);
+                        getPointsCmd.Parameters.AddWithValue("@studentId", CadetId);
+                        object result = getPointsCmd.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                        {
+                            currentPoints = Convert.ToInt32(result);
+                        }
+                    }
 
-                        cmd.ExecuteNonQuery();
+                    int newPoints = currentPoints - totalDemerits;
+                    if (newPoints < 0) newPoints = 0;
+
+                    string updateQuery = @"UPDATE aptitude SET
+                Haircut_Demerits = @haircut,
+                Uniform_Demerits = @uniform,
+                Makeup_Demerits = @makeup,
+                Earrings_Demerits = @earrings,
+                Facial_Hair_Demerits = @facialHair,
+                Tardiness_Demerits = @tardiness,
+                Total_Demerits = @totalDemerits,
+                Aptitude_Points = @newPoints
+                WHERE Student_ID = @studentId";
+
+                    using (MySqlCommand updateCmd = new MySqlCommand(updateQuery, conn))
+                    {
+                        updateCmd.Parameters.AddWithValue("@haircut", haircutDemerit);
+                        updateCmd.Parameters.AddWithValue("@uniform", uniformDemerit);
+                        updateCmd.Parameters.AddWithValue("@makeup", makeupDemerit);
+                        updateCmd.Parameters.AddWithValue("@earrings", earringsDemerit);
+                        updateCmd.Parameters.AddWithValue("@facialHair", facialHairDemerit);
+                        updateCmd.Parameters.AddWithValue("@tardiness", tardinessDemerit);
+                        updateCmd.Parameters.AddWithValue("@totalDemerits", totalDemerits);
+                        updateCmd.Parameters.AddWithValue("@newPoints", newPoints);
+                        updateCmd.Parameters.AddWithValue("@studentId", CadetId);
+
+                        int rowsAffected = updateCmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Data updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("No data was updated. Check if the student exists in the aptitude table.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
                 }
-
-                MessageBox.Show("Data saved successfully!", "Success",
-                              MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saving data: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error updating data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+
         }
-   
+
     }
 }
