@@ -34,10 +34,11 @@ namespace gradingSys_admin
                 return;
             }
 
-            using (MySqlConnection conn = Dbconnection.GetConnection())
+            using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
             {
                 try
                 {
+                    conn.Open();
                     string query = "SELECT * FROM cadet_info WHERE cadet_id = @cadetId";
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
@@ -112,8 +113,9 @@ namespace gradingSys_admin
 
             try
             {
-                using (MySqlConnection conn = Dbconnection.GetConnection())
+                using (MySqlConnection conn = Dbconnection.GetConnection("grading_db"))
                 {
+                    conn.Open();
                     conn.ChangeDatabase("grading_db");
 
                     int currentPoints = 100;

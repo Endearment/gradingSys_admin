@@ -124,6 +124,7 @@
             btn_save.Size = new Size(138, 41);
             btn_save.TabIndex = 19;
             btn_save.Text = "Save";
+            btn_save.Click += btn_save_Click;
             // 
             // lbl_score
             // 
@@ -144,7 +145,7 @@
             panel1.Size = new Size(310, 70);
             panel1.TabIndex = 21;
             // 
-            // gradeEdit
+            // examEdit
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -155,7 +156,7 @@
             Controls.Add(lbl_studNum);
             Controls.Add(lbl_studName);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "gradeEdit";
+            Name = "examEdit";
             Text = "gradeEdit";
             Load += gradeEdit_Load;
             panel1.ResumeLayout(false);
