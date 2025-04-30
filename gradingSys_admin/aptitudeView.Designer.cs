@@ -147,12 +147,12 @@
             // 
             guna2HtmlLabel1.BackColor = Color.Transparent;
             guna2HtmlLabel1.Font = new Font("Sans Serif Collection", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2HtmlLabel1.ForeColor = Color.Black;
+            guna2HtmlLabel1.ForeColor = Color.DarkOliveGreen;
             guna2HtmlLabel1.Location = new Point(12, -5);
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            guna2HtmlLabel1.Size = new Size(196, 83);
+            guna2HtmlLabel1.Size = new Size(216, 83);
             guna2HtmlLabel1.TabIndex = 6;
-            guna2HtmlLabel1.Text = "APTITUDE DATA";
+            guna2HtmlLabel1.Text = "EXAM / APTITUDE";
             guna2HtmlLabel1.Click += guna2HtmlLabel1_Click;
             // 
             // btn_gScore

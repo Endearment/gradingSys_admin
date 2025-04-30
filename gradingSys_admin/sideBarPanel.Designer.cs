@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(sideBarPanel));
             label1 = new Label();
             label2 = new Label();
-            label3 = new Label();
             label4 = new Label();
             pictureBox1 = new PictureBox();
             label5 = new Label();
@@ -52,7 +51,7 @@
             label1.ForeColor = Color.White;
             label1.Image = (Image)resources.GetObject("label1.Image");
             label1.ImageAlign = ContentAlignment.MiddleLeft;
-            label1.Location = new Point(0, 380);
+            label1.Location = new Point(0, 395);
             label1.Name = "label1";
             label1.Size = new Size(262, 48);
             label1.TabIndex = 0;
@@ -65,7 +64,7 @@
             label2.ForeColor = Color.White;
             label2.Image = (Image)resources.GetObject("label2.Image");
             label2.ImageAlign = ContentAlignment.MiddleLeft;
-            label2.Location = new Point(0, 523);
+            label2.Location = new Point(0, 464);
             label2.Name = "label2";
             label2.Size = new Size(262, 48);
             label2.TabIndex = 1;
@@ -73,25 +72,12 @@
             label2.TextAlign = ContentAlignment.MiddleLeft;
             label2.Click += label2_Click;
             // 
-            // label3
-            // 
-            label3.ForeColor = Color.White;
-            label3.Image = (Image)resources.GetObject("label3.Image");
-            label3.ImageAlign = ContentAlignment.MiddleLeft;
-            label3.Location = new Point(0, 450);
-            label3.Name = "label3";
-            label3.Size = new Size(262, 48);
-            label3.TabIndex = 2;
-            label3.Text = "            Exam";
-            label3.TextAlign = ContentAlignment.MiddleLeft;
-            label3.Click += label3_Click;
-            // 
             // label4
             // 
             label4.ForeColor = Color.White;
             label4.Image = (Image)resources.GetObject("label4.Image");
             label4.ImageAlign = ContentAlignment.MiddleLeft;
-            label4.Location = new Point(3, 600);
+            label4.Location = new Point(3, 536);
             label4.Name = "label4";
             label4.Size = new Size(259, 48);
             label4.TabIndex = 3;
@@ -101,9 +87,10 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(0, 56);
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(3, 56);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(262, 93);
+            pictureBox1.Size = new Size(256, 93);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
@@ -146,7 +133,7 @@
             label13.ForeColor = Color.White;
             label13.Image = (Image)resources.GetObject("label13.Image");
             label13.ImageAlign = ContentAlignment.MiddleLeft;
-            label13.Location = new Point(0, 307);
+            label13.Location = new Point(0, 322);
             label13.Name = "label13";
             label13.Size = new Size(262, 50);
             label13.TabIndex = 7;
@@ -164,7 +151,6 @@
             panel1.Controls.Add(label5);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label4);
-            panel1.Controls.Add(label3);
             panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 43);
@@ -227,7 +213,6 @@
         #endregion
         private Label label1;
         private Label label2;
-        private Label label3;
         private Label label4;
         private PictureBox pictureBox1;
         private Label label5;

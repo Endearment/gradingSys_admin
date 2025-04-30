@@ -19,6 +19,7 @@ namespace GradingSys_SIA
             panel2.MouseMove += new MouseEventHandler(panel2_MouseMove);
             panel2.MouseUp += new MouseEventHandler(panel2_MouseUp);
             this.TopMost = true;
+            loadform(new landingPage());
         }
 
         private void panel2_MouseDown(object? sender, MouseEventArgs e)
@@ -47,15 +48,15 @@ namespace GradingSys_SIA
             label13.Padding = new Padding(15, 0, 0, 0);
             label1.Padding = new Padding(50, 0, 0, 0);
             label2.Padding = new Padding(50, 0, 0, 0);
-            label3.Padding = new Padding(50, 0, 0, 0);
+            //label3.Padding = new Padding(50, 0, 0, 0);
             label4.Padding = new Padding(15, 0, 0, 0);
 
             label1.MouseEnter += labelFunction.Label_MouseEnter;
             label1.MouseLeave += labelFunction.Label_MouseLeave;
             label2.MouseEnter += labelFunction.Label_MouseEnter;
             label2.MouseLeave += labelFunction.Label_MouseLeave;
-            label3.MouseEnter += labelFunction.Label_MouseEnter;
-            label3.MouseLeave += labelFunction.Label_MouseLeave;
+            //label3.MouseEnter += labelFunction.Label_MouseEnter;
+            //label3.MouseLeave += labelFunction.Label_MouseLeave;
             label4.MouseEnter += labelFunction.Label_MouseEnter;
             label4.MouseLeave += labelFunction.Label_MouseLeave;
             label13.MouseEnter += labelFunction.Label_MouseEnter;
