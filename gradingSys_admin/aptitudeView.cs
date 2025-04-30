@@ -62,7 +62,7 @@ namespace gradingSys_admin
                         DataGridViewButtonColumn editButton = new DataGridViewButtonColumn();
                         editButton.Name = "editButton";
                         editButton.HeaderText = "Action";
-                        editButton.Text = "Edit";
+                        editButton.Text = "Edit Aptitude";
                         editButton.UseColumnTextForButtonValue = true;
                         editButton.DefaultCellStyle.BackColor = Color.Lavender;
                         editButton.DefaultCellStyle.ForeColor = Color.Black;
@@ -102,6 +102,32 @@ namespace gradingSys_admin
         private void guna2HtmlLabel1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void guna2Button1_Click_1(object sender, EventArgs e)
+        {
+            Form? mainForm = FormHelper.GetTopMostForm(this);
+            if (mainForm != null)
+            {
+                FormHelper.ShowDialogWithBackdrop(mainForm, new examEdit());
+            }
+            else
+            {
+                MessageBox.Show("Unable to determine the top-most form.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+            Form? mainForm = FormHelper.GetTopMostForm(this);
+            if (mainForm != null)
+            {
+                FormHelper.ShowDialogWithBackdrop(mainForm, new examEdit());
+            }
+            else
+            {
+                MessageBox.Show("Unable to determine the top-most form.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

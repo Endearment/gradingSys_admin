@@ -34,10 +34,19 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2ComboBox1 = new Guna.UI2.WinForms.Guna2ComboBox();
             guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
             lbl_cadetList = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            btn_gScore = new Guna.UI2.WinForms.Guna2Button();
+            guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
+            guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)guna2DataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -98,7 +107,7 @@
             guna2DataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             guna2DataGridView1.RowHeadersVisible = false;
             guna2DataGridView1.RowHeadersWidth = 62;
-            guna2DataGridView1.Size = new Size(911, 569);
+            guna2DataGridView1.Size = new Size(911, 522);
             guna2DataGridView1.TabIndex = 3;
             guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -146,12 +155,65 @@
             guna2HtmlLabel1.Text = "APTITUDE DATA";
             guna2HtmlLabel1.Click += guna2HtmlLabel1_Click;
             // 
+            // btn_gScore
+            // 
+            btn_gScore.CustomizableEdges = customizableEdges3;
+            btn_gScore.DisabledState.BorderColor = Color.DarkGray;
+            btn_gScore.DisabledState.CustomBorderColor = Color.DarkGray;
+            btn_gScore.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btn_gScore.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btn_gScore.Font = new Font("Segoe UI", 9F);
+            btn_gScore.ForeColor = Color.White;
+            btn_gScore.Location = new Point(12, 645);
+            btn_gScore.Name = "btn_gScore";
+            btn_gScore.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btn_gScore.Size = new Size(184, 46);
+            btn_gScore.TabIndex = 15;
+            btn_gScore.Text = "Gform Score";
+            // 
+            // guna2Button2
+            // 
+            guna2Button2.CustomizableEdges = customizableEdges5;
+            guna2Button2.DisabledState.BorderColor = Color.DarkGray;
+            guna2Button2.DisabledState.CustomBorderColor = Color.DarkGray;
+            guna2Button2.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            guna2Button2.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            guna2Button2.Font = new Font("Segoe UI", 9F);
+            guna2Button2.ForeColor = Color.White;
+            guna2Button2.Location = new Point(549, 645);
+            guna2Button2.Name = "guna2Button2";
+            guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            guna2Button2.Size = new Size(184, 46);
+            guna2Button2.TabIndex = 14;
+            guna2Button2.Text = "Edit Score";
+            guna2Button2.Click += guna2Button2_Click;
+            // 
+            // guna2Button1
+            // 
+            guna2Button1.CustomizableEdges = customizableEdges7;
+            guna2Button1.DisabledState.BorderColor = Color.DarkGray;
+            guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
+            guna2Button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            guna2Button1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            guna2Button1.Font = new Font("Segoe UI", 9F);
+            guna2Button1.ForeColor = Color.White;
+            guna2Button1.Location = new Point(735, 645);
+            guna2Button1.Name = "guna2Button1";
+            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            guna2Button1.Size = new Size(188, 46);
+            guna2Button1.TabIndex = 13;
+            guna2Button1.Text = "Add Score";
+            guna2Button1.Click += guna2Button1_Click_1;
+            // 
             // aptitudeView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(935, 698);
+            Controls.Add(btn_gScore);
+            Controls.Add(guna2Button2);
+            Controls.Add(guna2Button1);
             Controls.Add(guna2HtmlLabel1);
             Controls.Add(lbl_cadetList);
             Controls.Add(guna2ComboBox1);
@@ -170,5 +232,8 @@
         private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView1;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbl_cadetList;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
+        private Guna.UI2.WinForms.Guna2Button btn_gScore;
+        private Guna.UI2.WinForms.Guna2Button guna2Button2;
+        private Guna.UI2.WinForms.Guna2Button guna2Button1;
     }
 }
