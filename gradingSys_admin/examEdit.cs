@@ -202,8 +202,8 @@ namespace gradingSys_admin
                         long count = (long)checkCmd.ExecuteScalar();
 
                         string sql = count > 0
-                            ? "UPDATE examination SET Score = @score WHERE Student_ID = @cadetId"
-                            : "INSERT INTO examination (Student_id, Score) VALUES (@cadetId, @score)";
+                            ? "UPDATE examination SET " + (IsMidterm() ? "midterm_exam_score" : "finals_exam_score") + " = @score WHERE Student_ID = @cadetId"
+                            : "INSERT INTO examination (Student_ID, " + (IsMidterm() ? "midterm_exam_score" : "finals_exam_score") + ") VALUES (@cadetId, @score)";
 
                         using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                         {
@@ -222,6 +222,14 @@ namespace gradingSys_admin
                 }
             }
         }
+
+        private bool IsMidterm()
+        {
+            int currentMonth = DateTime.Now.Month;
+
+            return (currentMonth >= 1 && currentMonth <= 3) || (currentMonth >= 8 && currentMonth <= 10);
+        }
+
 
         private void txt_examScore_KeyPress(object sender, KeyPressEventArgs e)
         {
