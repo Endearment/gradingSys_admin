@@ -117,9 +117,11 @@ namespace gradingSys_admin
                 {
                     conn.Open();
 
-                    CadetId = CadetId.Trim();  // Ensure no trailing spaces
+                    CadetId = CadetId.Trim();
 
-                    string checkQuery = "SELECT EXISTS(SELECT 1 FROM aptitude WHERE Student_ID = @studentId)";
+
+                    string checkQuery = "SELECT COUNT(*) FROM aptitude WHERE Student_ID = @studentId";
+
                     using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn))
                     {
                         checkCmd.Parameters.AddWithValue("@studentId", CadetId);
@@ -129,7 +131,7 @@ namespace gradingSys_admin
 
                         if (studentExists > 0)
                         {
-                            // Record exists, update it
+                            
                             string getPointsQuery = "SELECT Aptitude_Points FROM aptitude WHERE Student_ID = @studentId";
                             using (MySqlCommand getPointsCmd = new MySqlCommand(getPointsQuery, conn))
                             {
@@ -145,15 +147,16 @@ namespace gradingSys_admin
                             if (newPoints < 0) newPoints = 0;
 
                             string updateQuery = @"UPDATE aptitude SET
-                        Haircut_Demerits = @haircut,
-                        Uniform_Demerits = @uniform,
-                        Makeup_Demerits = @makeup,
-                        Earrings_Demerits = @earrings,
-                        Facial_Hair_Demerits = @facialHair,
-                        Tardiness_Demerits = @tardiness,
-                        Total_Demerits = @totalDemerits,
-                        Aptitude_Points = @newPoints
-                        WHERE Student_ID = @studentId";
+                            Haircut_Demerits = Haircut_Demerits + @haircut,
+                            Uniform_Demerits = Uniform_Demerits + @uniform,
+                            Makeup_Demerits = Makeup_Demerits + @makeup,
+                            Earrings_Demerits = Earrings_Demerits + @earrings,
+                            Facial_Hair_Demerits = Facial_Hair_Demerits + @facialHair,
+                            Tardiness_Demerits = Tardiness_Demerits + @tardiness,
+                            Total_Demerits = Total_Demerits + @totalDemerits,
+                            Aptitude_Points = GREATEST(Aptitude_Points - @totalDemerits, 0)
+                            WHERE Student_ID = @studentId";
+
 
                             using (MySqlCommand updateCmd = new MySqlCommand(updateQuery, conn))
                             {
@@ -181,7 +184,7 @@ namespace gradingSys_admin
                         }
                         else
                         {
-                            // Record does not exist, insert it
+                            
                             int newPoints = 100 - totalDemerits;
                             if (newPoints < 0) newPoints = 0;
 
