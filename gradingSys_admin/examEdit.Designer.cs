@@ -56,18 +56,20 @@
             // lbl_studName
             // 
             lbl_studName.BackColor = Color.Transparent;
+            lbl_studName.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_studName.Location = new Point(69, 42);
             lbl_studName.Name = "lbl_studName";
-            lbl_studName.Size = new Size(178, 27);
+            lbl_studName.Size = new Size(203, 30);
             lbl_studName.TabIndex = 0;
             lbl_studName.Text = "-------------------------";
             // 
             // lbl_studNum
             // 
             lbl_studNum.BackColor = Color.Transparent;
+            lbl_studNum.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_studNum.Location = new Point(69, 75);
             lbl_studNum.Name = "lbl_studNum";
-            lbl_studNum.Size = new Size(136, 27);
+            lbl_studNum.Size = new Size(155, 30);
             lbl_studNum.TabIndex = 1;
             lbl_studNum.Text = "-------------------";
             // 
@@ -108,6 +110,7 @@
             txt_examScore.ShadowDecoration.CustomizableEdges = customizableEdges2;
             txt_examScore.Size = new Size(130, 49);
             txt_examScore.TabIndex = 16;
+            txt_examScore.KeyPress += txt_examScore_KeyPress;
             // 
             // btn_save
             // 

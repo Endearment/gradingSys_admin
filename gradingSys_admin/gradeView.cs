@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace gradingSys_admin
 {
-    public partial class gradeView: Form
+    public partial class gradeView : Form
     {
         public gradeView()
         {
             InitializeComponent();
+        }
+
+        private void guna2HtmlLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gradeView_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

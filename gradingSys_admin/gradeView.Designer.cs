@@ -51,7 +51,7 @@
             guna2CircleProgressBar1.FillColor = Color.FromArgb(200, 213, 218, 223);
             guna2CircleProgressBar1.Font = new Font("Segoe UI", 12F);
             guna2CircleProgressBar1.ForeColor = Color.White;
-            guna2CircleProgressBar1.Location = new Point(765, 131);
+            guna2CircleProgressBar1.Location = new Point(695, 115);
             guna2CircleProgressBar1.Minimum = 0;
             guna2CircleProgressBar1.Name = "guna2CircleProgressBar1";
             guna2CircleProgressBar1.ShadowDecoration.CustomizableEdges = customizableEdges1;
@@ -66,7 +66,7 @@
             guna2CircleProgressBar2.FillColor = Color.FromArgb(200, 213, 218, 223);
             guna2CircleProgressBar2.Font = new Font("Segoe UI", 12F);
             guna2CircleProgressBar2.ForeColor = Color.White;
-            guna2CircleProgressBar2.Location = new Point(598, 131);
+            guna2CircleProgressBar2.Location = new Point(528, 115);
             guna2CircleProgressBar2.Minimum = 0;
             guna2CircleProgressBar2.Name = "guna2CircleProgressBar2";
             guna2CircleProgressBar2.ShadowDecoration.CustomizableEdges = customizableEdges2;
@@ -80,7 +80,7 @@
             guna2CircleProgressBar3.FillColor = Color.FromArgb(200, 213, 218, 223);
             guna2CircleProgressBar3.Font = new Font("Segoe UI", 12F);
             guna2CircleProgressBar3.ForeColor = Color.White;
-            guna2CircleProgressBar3.Location = new Point(437, 131);
+            guna2CircleProgressBar3.Location = new Point(367, 115);
             guna2CircleProgressBar3.Minimum = 0;
             guna2CircleProgressBar3.Name = "guna2CircleProgressBar3";
             guna2CircleProgressBar3.ShadowDecoration.CustomizableEdges = customizableEdges3;
@@ -88,6 +88,7 @@
             guna2CircleProgressBar3.Size = new Size(158, 158);
             guna2CircleProgressBar3.TabIndex = 1;
             guna2CircleProgressBar3.Text = "guna2CircleProgressBar3";
+            guna2CircleProgressBar3.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
             // 
             // lbl_studName
             // 
@@ -112,7 +113,7 @@
             guna2CircleProgressBar4.FillColor = Color.FromArgb(200, 213, 218, 223);
             guna2CircleProgressBar4.Font = new Font("Segoe UI", 12F);
             guna2CircleProgressBar4.ForeColor = Color.White;
-            guna2CircleProgressBar4.Location = new Point(437, 384);
+            guna2CircleProgressBar4.Location = new Point(367, 368);
             guna2CircleProgressBar4.Minimum = 0;
             guna2CircleProgressBar4.Name = "guna2CircleProgressBar4";
             guna2CircleProgressBar4.ShadowDecoration.CustomizableEdges = customizableEdges4;
@@ -126,7 +127,7 @@
             guna2CircleProgressBar5.FillColor = Color.FromArgb(200, 213, 218, 223);
             guna2CircleProgressBar5.Font = new Font("Segoe UI", 12F);
             guna2CircleProgressBar5.ForeColor = Color.White;
-            guna2CircleProgressBar5.Location = new Point(601, 384);
+            guna2CircleProgressBar5.Location = new Point(531, 368);
             guna2CircleProgressBar5.Minimum = 0;
             guna2CircleProgressBar5.Name = "guna2CircleProgressBar5";
             guna2CircleProgressBar5.ShadowDecoration.CustomizableEdges = customizableEdges5;
@@ -140,7 +141,7 @@
             guna2CircleProgressBar6.FillColor = Color.FromArgb(200, 213, 218, 223);
             guna2CircleProgressBar6.Font = new Font("Segoe UI", 12F);
             guna2CircleProgressBar6.ForeColor = Color.White;
-            guna2CircleProgressBar6.Location = new Point(765, 384);
+            guna2CircleProgressBar6.Location = new Point(695, 368);
             guna2CircleProgressBar6.Minimum = 0;
             guna2CircleProgressBar6.Name = "guna2CircleProgressBar6";
             guna2CircleProgressBar6.ShadowDecoration.CustomizableEdges = customizableEdges6;
@@ -152,26 +153,31 @@
             // guna2HtmlLabel1
             // 
             guna2HtmlLabel1.BackColor = Color.Transparent;
-            guna2HtmlLabel1.Location = new Point(321, 190);
+            guna2HtmlLabel1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            guna2HtmlLabel1.Location = new Point(553, 53);
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            guna2HtmlLabel1.Size = new Size(71, 27);
+            guna2HtmlLabel1.Size = new Size(107, 32);
             guna2HtmlLabel1.TabIndex = 5;
-            guna2HtmlLabel1.Text = "Midterm";
+            guna2HtmlLabel1.Text = "MIDTERM";
+            guna2HtmlLabel1.TextAlignment = ContentAlignment.MiddleCenter;
+            guna2HtmlLabel1.Click += guna2HtmlLabel1_Click;
             // 
             // guna2HtmlLabel2
             // 
             guna2HtmlLabel2.BackColor = Color.Transparent;
-            guna2HtmlLabel2.Location = new Point(467, 351);
+            guna2HtmlLabel2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            guna2HtmlLabel2.Location = new Point(569, 316);
             guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            guna2HtmlLabel2.Size = new Size(47, 27);
+            guna2HtmlLabel2.Size = new Size(76, 32);
             guna2HtmlLabel2.TabIndex = 6;
-            guna2HtmlLabel2.Text = "Finals";
+            guna2HtmlLabel2.Text = "FINALS";
+            guna2HtmlLabel2.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // gradeView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(935, 698);
+            ClientSize = new Size(919, 592);
             Controls.Add(guna2HtmlLabel2);
             Controls.Add(guna2HtmlLabel1);
             Controls.Add(guna2CircleProgressBar6);
@@ -185,6 +191,8 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "gradeView";
             Text = "grade";
+            TopMost = true;
+            Load += gradeView_Load;
             ResumeLayout(false);
             PerformLayout();
         }

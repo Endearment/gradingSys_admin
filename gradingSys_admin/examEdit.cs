@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace gradingSys_admin
 {
@@ -41,11 +42,11 @@ namespace gradingSys_admin
                         {
                             if (reader.Read())
                             {
-                                string cadetId = reader["cadet_id"].ToString(); 
-                                string cadetName = reader["CONCAT(last_name, ', ', first_name, ' ', middle_name)"].ToString(); 
+                                string cadetId = reader["cadet_id"].ToString();
+                                string cadetName = reader["CONCAT(last_name, ', ', first_name, ' ', middle_name)"].ToString();
 
-                                lbl_studNum.Text = cadetId;  
-                                lbl_studName.Text = cadetName; 
+                                lbl_studNum.Text = cadetId;
+                                lbl_studName.Text = cadetName;
                             }
                             else
                             {
@@ -129,7 +130,7 @@ namespace gradingSys_admin
 
                         if (maxResult != null && maxResult != DBNull.Value)
                         {
-                            maxScore = Convert.ToSingle(maxResult); 
+                            maxScore = Convert.ToSingle(maxResult);
                         }
                     }
                 }
@@ -154,7 +155,7 @@ namespace gradingSys_admin
                 {
                     conn.Open();
                     string nameQuery = "SELECT CONCAT(last_name, ', ', first_name, ' ', middle_name) FROM cadet_info WHERE cadet_id = @cadetId";
-                    MySqlCommand nameCmd = new MySqlCommand(nameQuery, conn); 
+                    MySqlCommand nameCmd = new MySqlCommand(nameQuery, conn);
                     nameCmd.Parameters.AddWithValue("@cadetId", CadetId);
                     object result = nameCmd.ExecuteScalar();
                     fullName = result != null ? result.ToString() : "Unknown";
@@ -214,6 +215,19 @@ namespace gradingSys_admin
                 }
             }
         }
-     }
- }
+
+        private void txt_examScore_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+            if (!char.IsControl(e.KeyChar) && txt_examScore.Text.Length >= 2)
+            {
+                e.Handled = true;
+            }
+        }
+    }
+}
 

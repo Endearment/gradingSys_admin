@@ -44,9 +44,9 @@
             guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
             lbl_cadetList = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            btn_gScore = new Guna.UI2.WinForms.Guna2Button();
-            guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
-            guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            btn_viewGrade = new Guna.UI2.WinForms.Guna2Button();
+            btn_edtScore = new Guna.UI2.WinForms.Guna2Button();
+            btn_addScore = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)guna2DataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -71,6 +71,8 @@
             // 
             // guna2DataGridView1
             // 
+            guna2DataGridView1.AllowUserToAddRows = false;
+            guna2DataGridView1.AllowUserToDeleteRows = false;
             guna2DataGridView1.AllowUserToResizeColumns = false;
             guna2DataGridView1.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = Color.Gainsboro;
@@ -150,60 +152,64 @@
             guna2HtmlLabel1.ForeColor = Color.DarkOliveGreen;
             guna2HtmlLabel1.Location = new Point(12, -5);
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            guna2HtmlLabel1.Size = new Size(216, 83);
+            guna2HtmlLabel1.Size = new Size(251, 83);
             guna2HtmlLabel1.TabIndex = 6;
-            guna2HtmlLabel1.Text = "EXAM / APTITUDE";
+            guna2HtmlLabel1.Text = "CADET INFOMATION";
             guna2HtmlLabel1.Click += guna2HtmlLabel1_Click;
             // 
-            // btn_gScore
+            // btn_viewGrade
             // 
-            btn_gScore.CustomizableEdges = customizableEdges3;
-            btn_gScore.DisabledState.BorderColor = Color.DarkGray;
-            btn_gScore.DisabledState.CustomBorderColor = Color.DarkGray;
-            btn_gScore.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btn_gScore.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btn_gScore.Font = new Font("Segoe UI", 9F);
-            btn_gScore.ForeColor = Color.White;
-            btn_gScore.Location = new Point(12, 645);
-            btn_gScore.Name = "btn_gScore";
-            btn_gScore.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btn_gScore.Size = new Size(184, 46);
-            btn_gScore.TabIndex = 15;
-            btn_gScore.Text = "Gform Score";
+            btn_viewGrade.CustomizableEdges = customizableEdges3;
+            btn_viewGrade.DisabledState.BorderColor = Color.DarkGray;
+            btn_viewGrade.DisabledState.CustomBorderColor = Color.DarkGray;
+            btn_viewGrade.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btn_viewGrade.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btn_viewGrade.FillColor = Color.FromArgb(75, 144, 143);
+            btn_viewGrade.Font = new Font("Segoe UI", 9F);
+            btn_viewGrade.ForeColor = Color.White;
+            btn_viewGrade.Location = new Point(12, 645);
+            btn_viewGrade.Name = "btn_viewGrade";
+            btn_viewGrade.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btn_viewGrade.Size = new Size(184, 46);
+            btn_viewGrade.TabIndex = 15;
+            btn_viewGrade.Text = "View Grade";
+            btn_viewGrade.Click += btn_gScore_Click;
             // 
-            // guna2Button2
+            // btn_edtScore
             // 
-            guna2Button2.CustomizableEdges = customizableEdges5;
-            guna2Button2.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button2.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button2.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button2.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button2.Font = new Font("Segoe UI", 9F);
-            guna2Button2.ForeColor = Color.White;
-            guna2Button2.Location = new Point(549, 645);
-            guna2Button2.Name = "guna2Button2";
-            guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2Button2.Size = new Size(184, 46);
-            guna2Button2.TabIndex = 14;
-            guna2Button2.Text = "Edit Score";
-            guna2Button2.Click += guna2Button2_Click;
+            btn_edtScore.CustomizableEdges = customizableEdges5;
+            btn_edtScore.DisabledState.BorderColor = Color.DarkGray;
+            btn_edtScore.DisabledState.CustomBorderColor = Color.DarkGray;
+            btn_edtScore.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btn_edtScore.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btn_edtScore.FillColor = Color.FromArgb(224, 168, 0);
+            btn_edtScore.Font = new Font("Segoe UI", 9F);
+            btn_edtScore.ForeColor = Color.White;
+            btn_edtScore.Location = new Point(549, 645);
+            btn_edtScore.Name = "btn_edtScore";
+            btn_edtScore.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btn_edtScore.Size = new Size(184, 46);
+            btn_edtScore.TabIndex = 14;
+            btn_edtScore.Text = "Edit Score";
+            btn_edtScore.Click += guna2Button2_Click;
             // 
-            // guna2Button1
+            // btn_addScore
             // 
-            guna2Button1.CustomizableEdges = customizableEdges7;
-            guna2Button1.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button1.Font = new Font("Segoe UI", 9F);
-            guna2Button1.ForeColor = Color.White;
-            guna2Button1.Location = new Point(735, 645);
-            guna2Button1.Name = "guna2Button1";
-            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2Button1.Size = new Size(188, 46);
-            guna2Button1.TabIndex = 13;
-            guna2Button1.Text = "Add Score";
-            guna2Button1.Click += guna2Button1_Click_1;
+            btn_addScore.CustomizableEdges = customizableEdges7;
+            btn_addScore.DisabledState.BorderColor = Color.DarkGray;
+            btn_addScore.DisabledState.CustomBorderColor = Color.DarkGray;
+            btn_addScore.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btn_addScore.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btn_addScore.FillColor = Color.FromArgb(164, 198, 57);
+            btn_addScore.Font = new Font("Segoe UI", 9F);
+            btn_addScore.ForeColor = Color.White;
+            btn_addScore.Location = new Point(735, 645);
+            btn_addScore.Name = "btn_addScore";
+            btn_addScore.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btn_addScore.Size = new Size(188, 46);
+            btn_addScore.TabIndex = 13;
+            btn_addScore.Text = "Add Score";
+            btn_addScore.Click += guna2Button1_Click_1;
             // 
             // aptitudeView
             // 
@@ -211,9 +217,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(935, 698);
-            Controls.Add(btn_gScore);
-            Controls.Add(guna2Button2);
-            Controls.Add(guna2Button1);
+            Controls.Add(btn_viewGrade);
+            Controls.Add(btn_edtScore);
+            Controls.Add(btn_addScore);
             Controls.Add(guna2HtmlLabel1);
             Controls.Add(lbl_cadetList);
             Controls.Add(guna2ComboBox1);
@@ -232,8 +238,8 @@
         private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView1;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbl_cadetList;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
-        private Guna.UI2.WinForms.Guna2Button btn_gScore;
-        private Guna.UI2.WinForms.Guna2Button guna2Button2;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
+        private Guna.UI2.WinForms.Guna2Button btn_viewGrade;
+        private Guna.UI2.WinForms.Guna2Button btn_edtScore;
+        private Guna.UI2.WinForms.Guna2Button btn_addScore;
     }
 }

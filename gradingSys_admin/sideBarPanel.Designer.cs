@@ -51,11 +51,11 @@
             label1.ForeColor = Color.White;
             label1.Image = (Image)resources.GetObject("label1.Image");
             label1.ImageAlign = ContentAlignment.MiddleLeft;
-            label1.Location = new Point(0, 395);
+            label1.Location = new Point(0, 382);
             label1.Name = "label1";
-            label1.Size = new Size(262, 48);
+            label1.Size = new Size(262, 71);
             label1.TabIndex = 0;
-            label1.Text = "            Aptitude";
+            label1.Text = "                Cadet\r\n            Information";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             label1.Click += label1_Click;
             // 

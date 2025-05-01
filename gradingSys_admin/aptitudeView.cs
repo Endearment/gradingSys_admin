@@ -47,7 +47,7 @@ namespace gradingSys_admin
         }
         private void LoadData()
         {
-            using (MySqlConnection conn = Dbconnection.GetConnection("cis_db")) 
+            using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
             {
                 try
                 {
@@ -230,6 +230,21 @@ namespace gradingSys_admin
                 MessageBox.Show("No cadet row is selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
+        }
+
+        private void btn_gScore_Click(object sender, EventArgs e)
+        {
+            Form? mainForm = FormHelper.GetTopMostForm(this);
+            if (mainForm != null)
+            {
+                gradeView editForm = new gradeView();
+                //gradeView.CadetId = cadetId;
+                FormHelper.ShowDialogWithBackdrop(mainForm, editForm);
+            }
+            else
+            {
+                MessageBox.Show("Unable to determine the top-most form.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
