@@ -246,5 +246,32 @@ namespace gradingSys_admin
                 MessageBox.Show("Unable to determine the top-most form.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = textBoxSearch.Text;
+
+            using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
+            {
+                string query = @"
+            SELECT ci.cadet_id, ci.last_name, ci.first_name, ci.middle_name, ex.Score 
+            FROM cis_db.cadet_info ci
+            LEFT JOIN grading_db.examination ex ON ci.cadet_id = ex.Student_ID
+            WHERE ci.cadet_id LIKE @search 
+               OR ci.last_name LIKE @search 
+               OR ci.first_name LIKE @search 
+               OR ci.middle_name LIKE @search 
+               OR ex.Score LIKE @search";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@search", "%" + searchText + "%");
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    guna2DataGridView1.DataSource = dt;
+                }
+            }
+        } 
     }
 }
