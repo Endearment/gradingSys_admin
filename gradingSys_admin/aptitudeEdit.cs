@@ -112,24 +112,19 @@ namespace gradingSys_admin
             int totalDemerits = haircutDemerit + uniformDemerit + makeupDemerit +
                                 earringsDemerit + facialHairDemerit + tardinessDemerit;
 
-
-            if (totalDemerits == 0)
-            {
-                MessageBox.Show("Please select at least one demerit before saving.", "No Demerits Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            // Get merits from combo boxes
+            int accomplishmentMerit = int.TryParse(mrt_accomp.SelectedItem?.ToString(), out int acc) ? acc : 0;
+            int touringMerit = int.TryParse(mrt_tour.SelectedItem?.ToString(), out int tour) ? tour : 0;
+            int totalMerits = accomplishmentMerit + touringMerit;
 
             try
             {
                 using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
                 {
                     conn.Open();
-
                     CadetId = CadetId.Trim();
 
-
                     string checkQuery = "SELECT COUNT(*) FROM aptitude WHERE Student_ID = @studentId";
-
                     using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn))
                     {
                         checkCmd.Parameters.AddWithValue("@studentId", CadetId);
@@ -139,8 +134,7 @@ namespace gradingSys_admin
 
                         if (studentExists > 0)
                         {
-
-                            string getPointsQuery = "SELECT Aptitude_Points FROM aptitude WHERE Student_ID = @studentId";
+                            string getPointsQuery = "SELECT Aptitude_Points FROM aptitude WHERE Student_ID = @studentId ORDER BY Record_ID DESC LIMIT 1";
                             using (MySqlCommand getPointsCmd = new MySqlCommand(getPointsQuery, conn))
                             {
                                 getPointsCmd.Parameters.AddWithValue("@studentId", CadetId);
@@ -151,20 +145,22 @@ namespace gradingSys_admin
                                 }
                             }
 
-                            int newPoints = currentPoints - totalDemerits;
+                            int newPoints = currentPoints - totalDemerits + totalMerits;
+                            if (newPoints > 100) newPoints = 100;
                             if (newPoints < 0) newPoints = 0;
 
                             string updateQuery = @"UPDATE aptitude SET
-                            Haircut_Demerits = Haircut_Demerits + @haircut,
-                            Uniform_Demerits = Uniform_Demerits + @uniform,
-                            Makeup_Demerits = Makeup_Demerits + @makeup,
-                            Earrings_Demerits = Earrings_Demerits + @earrings,
-                            Facial_Hair_Demerits = Facial_Hair_Demerits + @facialHair,
-                            Tardiness_Demerits = Tardiness_Demerits + @tardiness,
-                            Total_Demerits = Total_Demerits + @totalDemerits,
-                            Aptitude_Points = GREATEST(Aptitude_Points - @totalDemerits, 0)
-                            WHERE Student_ID = @studentId";
-
+                        Haircut_Demerits = Haircut_Demerits + @haircut,
+                        Uniform_Demerits = Uniform_Demerits + @uniform,
+                        Makeup_Demerits = Makeup_Demerits + @makeup,
+                        Earrings_Demerits = Earrings_Demerits + @earrings,
+                        Facial_Hair_Demerits = Facial_Hair_Demerits + @facialHair,
+                        Tardiness_Demerits = Tardiness_Demerits + @tardiness,
+                        Total_Demerits = Total_Demerits + @totalDemerits,
+                        Accomplishment_Merits = Accomplishment_Merits + @accMerit,
+                        Touring_Merits = Touring_Merits + @tourMerit,
+                        Aptitude_Points = @newPoints
+                        WHERE Student_ID = @studentId";
 
                             using (MySqlCommand updateCmd = new MySqlCommand(updateQuery, conn))
                             {
@@ -175,6 +171,8 @@ namespace gradingSys_admin
                                 updateCmd.Parameters.AddWithValue("@facialHair", facialHairDemerit);
                                 updateCmd.Parameters.AddWithValue("@tardiness", tardinessDemerit);
                                 updateCmd.Parameters.AddWithValue("@totalDemerits", totalDemerits);
+                                updateCmd.Parameters.AddWithValue("@accMerit", accomplishmentMerit);
+                                updateCmd.Parameters.AddWithValue("@tourMerit", touringMerit);
                                 updateCmd.Parameters.AddWithValue("@newPoints", newPoints);
                                 updateCmd.Parameters.AddWithValue("@studentId", CadetId);
 
@@ -192,18 +190,18 @@ namespace gradingSys_admin
                         }
                         else
                         {
-
-                            int newPoints = 100 - totalDemerits;
+                            int newPoints = 100 - totalDemerits + totalMerits;
+                            if (newPoints > 100) newPoints = 100;
                             if (newPoints < 0) newPoints = 0;
 
                             string insertQuery = @"INSERT INTO aptitude (
                         Student_ID, Haircut_Demerits, Uniform_Demerits, Makeup_Demerits,
                         Earrings_Demerits, Facial_Hair_Demerits, Tardiness_Demerits,
-                        Total_Demerits, Aptitude_Points)
+                        Total_Demerits, Accomplishment_Merits, Touring_Merits, Aptitude_Points)
                         VALUES (
                         @studentId, @haircut, @uniform, @makeup,
                         @earrings, @facialHair, @tardiness,
-                        @totalDemerits, @newPoints)";
+                        @totalDemerits, @accMerit, @tourMerit, @newPoints)";
 
                             using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn))
                             {
@@ -215,13 +213,14 @@ namespace gradingSys_admin
                                 insertCmd.Parameters.AddWithValue("@facialHair", facialHairDemerit);
                                 insertCmd.Parameters.AddWithValue("@tardiness", tardinessDemerit);
                                 insertCmd.Parameters.AddWithValue("@totalDemerits", totalDemerits);
+                                insertCmd.Parameters.AddWithValue("@accMerit", accomplishmentMerit);
+                                insertCmd.Parameters.AddWithValue("@tourMerit", touringMerit);
                                 insertCmd.Parameters.AddWithValue("@newPoints", newPoints);
 
                                 insertCmd.ExecuteNonQuery();
                             }
 
                             MessageBox.Show("Data inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                             this.Close();
                         }
                     }
@@ -232,6 +231,7 @@ namespace gradingSys_admin
                 MessageBox.Show($"Error saving data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void UpdateAptitudePointsProgress(string cadetId)
         {
