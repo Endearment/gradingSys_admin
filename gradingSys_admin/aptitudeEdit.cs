@@ -113,70 +113,116 @@ namespace gradingSys_admin
 
             try
             {
-                using (MySqlConnection conn = Dbconnection.GetConnection("grading_db"))
+                using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
                 {
                     conn.Open();
-                    conn.ChangeDatabase("grading_db");
 
-                    int currentPoints = 100;
-                    string getPointsQuery = "SELECT Aptitude_Points FROM aptitude WHERE Student_ID = @studentId";
+                    CadetId = CadetId.Trim();  // Ensure no trailing spaces
 
-                    using (MySqlCommand getPointsCmd = new MySqlCommand(getPointsQuery, conn))
+                    string checkQuery = "SELECT EXISTS(SELECT 1 FROM aptitude WHERE Student_ID = @studentId)";
+                    using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn))
                     {
-                        getPointsCmd.Parameters.AddWithValue("@studentId", CadetId);
-                        object result = getPointsCmd.ExecuteScalar();
-                        if (result != null && result != DBNull.Value)
+                        checkCmd.Parameters.AddWithValue("@studentId", CadetId);
+                        int studentExists = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                        int currentPoints = 100;
+
+                        if (studentExists > 0)
                         {
-                            currentPoints = Convert.ToInt32(result);
-                        }
-                    }
+                            // Record exists, update it
+                            string getPointsQuery = "SELECT Aptitude_Points FROM aptitude WHERE Student_ID = @studentId";
+                            using (MySqlCommand getPointsCmd = new MySqlCommand(getPointsQuery, conn))
+                            {
+                                getPointsCmd.Parameters.AddWithValue("@studentId", CadetId);
+                                object result = getPointsCmd.ExecuteScalar();
+                                if (result != null && result != DBNull.Value)
+                                {
+                                    currentPoints = Convert.ToInt32(result);
+                                }
+                            }
 
-                    int newPoints = currentPoints - totalDemerits;
-                    if (newPoints < 0) newPoints = 0;
+                            int newPoints = currentPoints - totalDemerits;
+                            if (newPoints < 0) newPoints = 0;
 
-                    string updateQuery = @"UPDATE aptitude SET
-                Haircut_Demerits = @haircut,
-                Uniform_Demerits = @uniform,
-                Makeup_Demerits = @makeup,
-                Earrings_Demerits = @earrings,
-                Facial_Hair_Demerits = @facialHair,
-                Tardiness_Demerits = @tardiness,
-                Total_Demerits = @totalDemerits,
-                Aptitude_Points = @newPoints
-                WHERE Student_ID = @studentId";
+                            string updateQuery = @"UPDATE aptitude SET
+                        Haircut_Demerits = @haircut,
+                        Uniform_Demerits = @uniform,
+                        Makeup_Demerits = @makeup,
+                        Earrings_Demerits = @earrings,
+                        Facial_Hair_Demerits = @facialHair,
+                        Tardiness_Demerits = @tardiness,
+                        Total_Demerits = @totalDemerits,
+                        Aptitude_Points = @newPoints
+                        WHERE Student_ID = @studentId";
 
-                    using (MySqlCommand updateCmd = new MySqlCommand(updateQuery, conn))
-                    {
-                        updateCmd.Parameters.AddWithValue("@haircut", haircutDemerit);
-                        updateCmd.Parameters.AddWithValue("@uniform", uniformDemerit);
-                        updateCmd.Parameters.AddWithValue("@makeup", makeupDemerit);
-                        updateCmd.Parameters.AddWithValue("@earrings", earringsDemerit);
-                        updateCmd.Parameters.AddWithValue("@facialHair", facialHairDemerit);
-                        updateCmd.Parameters.AddWithValue("@tardiness", tardinessDemerit);
-                        updateCmd.Parameters.AddWithValue("@totalDemerits", totalDemerits);
-                        updateCmd.Parameters.AddWithValue("@newPoints", newPoints);
-                        updateCmd.Parameters.AddWithValue("@studentId", CadetId);
+                            using (MySqlCommand updateCmd = new MySqlCommand(updateQuery, conn))
+                            {
+                                updateCmd.Parameters.AddWithValue("@haircut", haircutDemerit);
+                                updateCmd.Parameters.AddWithValue("@uniform", uniformDemerit);
+                                updateCmd.Parameters.AddWithValue("@makeup", makeupDemerit);
+                                updateCmd.Parameters.AddWithValue("@earrings", earringsDemerit);
+                                updateCmd.Parameters.AddWithValue("@facialHair", facialHairDemerit);
+                                updateCmd.Parameters.AddWithValue("@tardiness", tardinessDemerit);
+                                updateCmd.Parameters.AddWithValue("@totalDemerits", totalDemerits);
+                                updateCmd.Parameters.AddWithValue("@newPoints", newPoints);
+                                updateCmd.Parameters.AddWithValue("@studentId", CadetId);
 
-                        int rowsAffected = updateCmd.ExecuteNonQuery();
-                        if (rowsAffected > 0)
-                        {
-                            MessageBox.Show("Data updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Close();
+                                int rowsAffected = updateCmd.ExecuteNonQuery();
+                                if (rowsAffected > 0)
+                                {
+                                    MessageBox.Show("Data updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    this.Close();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No data was updated. Check if the student exists in the aptitude table.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                            }
                         }
                         else
                         {
-                            MessageBox.Show("No data was updated. Check if the student exists in the aptitude table.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            // Record does not exist, insert it
+                            int newPoints = 100 - totalDemerits;
+                            if (newPoints < 0) newPoints = 0;
+
+                            string insertQuery = @"INSERT INTO aptitude (
+                        Student_ID, Haircut_Demerits, Uniform_Demerits, Makeup_Demerits,
+                        Earrings_Demerits, Facial_Hair_Demerits, Tardiness_Demerits,
+                        Total_Demerits, Aptitude_Points)
+                        VALUES (
+                        @studentId, @haircut, @uniform, @makeup,
+                        @earrings, @facialHair, @tardiness,
+                        @totalDemerits, @newPoints)";
+
+                            using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn))
+                            {
+                                insertCmd.Parameters.AddWithValue("@studentId", CadetId);
+                                insertCmd.Parameters.AddWithValue("@haircut", haircutDemerit);
+                                insertCmd.Parameters.AddWithValue("@uniform", uniformDemerit);
+                                insertCmd.Parameters.AddWithValue("@makeup", makeupDemerit);
+                                insertCmd.Parameters.AddWithValue("@earrings", earringsDemerit);
+                                insertCmd.Parameters.AddWithValue("@facialHair", facialHairDemerit);
+                                insertCmd.Parameters.AddWithValue("@tardiness", tardinessDemerit);
+                                insertCmd.Parameters.AddWithValue("@totalDemerits", totalDemerits);
+                                insertCmd.Parameters.AddWithValue("@newPoints", newPoints);
+
+                                insertCmd.ExecuteNonQuery();
+                            }
+
+                            MessageBox.Show("Data inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error updating data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error saving data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
         }
 
+
     }
-}
+
+ }
+

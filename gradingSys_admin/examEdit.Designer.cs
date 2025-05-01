@@ -173,7 +173,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lbl_studNum;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbl_studName;
         private Guna.UI2.WinForms.Guna2Button btn_exit;
-        private Guna.UI2.WinForms.Guna2Button guna2Button3;
+        //private Guna.UI2.WinForms.Guna2Button guna2Button3;
         private Guna.UI2.WinForms.Guna2Button guna2Button2;
         private Guna.UI2.WinForms.Guna2TextBox txt_examScore;
         private Guna.UI2.WinForms.Guna2Button btn_save;

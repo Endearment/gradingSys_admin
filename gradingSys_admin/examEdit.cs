@@ -15,6 +15,7 @@ namespace gradingSys_admin
     public partial class examEdit : Form
     {
         public string CadetId { get; set; } = string.Empty;
+
         public examEdit()
         {
             InitializeComponent();
@@ -27,12 +28,18 @@ namespace gradingSys_admin
         {
             if (string.IsNullOrEmpty(CadetId)) return;
 
+            LoadCadetInfo();
+            LoadExamScore();
+        }
+
+        private void LoadCadetInfo()
+        {
             using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
             {
                 try
                 {
                     conn.Open();
-                    string query = "SELECT cadet_id, CONCAT(last_name, ', ', first_name, ' ', middle_name) " +
+                    string query = "SELECT cadet_id, CONCAT(last_name, ', ', first_name, ' ', middle_name) AS full_name " +
                                    "FROM cadet_info WHERE cadet_id = @cadetId";
 
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
@@ -42,11 +49,8 @@ namespace gradingSys_admin
                         {
                             if (reader.Read())
                             {
-                                string cadetId = reader["cadet_id"].ToString();
-                                string cadetName = reader["CONCAT(last_name, ', ', first_name, ' ', middle_name)"].ToString();
-
-                                lbl_studNum.Text = cadetId;
-                                lbl_studName.Text = cadetName;
+                                lbl_studNum.Text = reader["cadet_id"].ToString();
+                                lbl_studName.Text = reader["full_name"].ToString();
                             }
                             else
                             {
@@ -60,8 +64,11 @@ namespace gradingSys_admin
                     MessageBox.Show("Failed to load student information: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
 
-            using (MySqlConnection conn = Dbconnection.GetConnection("grading_db"))
+        private void LoadExamScore()
+        {
+            using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
             {
                 try
                 {
@@ -72,15 +79,7 @@ namespace gradingSys_admin
                     {
                         cmd.Parameters.AddWithValue("@cadetId", CadetId);
                         object result = cmd.ExecuteScalar();
-
-                        if (result != null && result != DBNull.Value)
-                        {
-                            txt_examScore.Text = result.ToString();
-                        }
-                        else
-                        {
-                            txt_examScore.Text = "";
-                        }
+                        txt_examScore.Text = result != null && result != DBNull.Value ? result.ToString() : "";
                     }
                 }
                 catch (Exception ex)
@@ -89,7 +88,6 @@ namespace gradingSys_admin
                 }
             }
         }
-
 
         private void btn_exit_Click(object sender, EventArgs e)
         {
@@ -114,116 +112,125 @@ namespace gradingSys_admin
                 return;
             }
 
-            float maxScore = 50;
-
-            using (MySqlConnection conn = Dbconnection.GetConnection("grading_db"))
-            {
-                try
-                {
-                    conn.Open();
-                    string maxScoreQuery = "SELECT Max_Score FROM examination WHERE Student_ID = @cadetId ORDER BY Max_Score DESC LIMIT 1";
-
-                    using (MySqlCommand maxCmd = new MySqlCommand(maxScoreQuery, conn))
-                    {
-                        maxCmd.Parameters.AddWithValue("@cadetId", CadetId);
-                        object maxResult = maxCmd.ExecuteScalar();
-
-                        if (maxResult != null && maxResult != DBNull.Value)
-                        {
-                            maxScore = Convert.ToSingle(maxResult);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to retrieve Max Score: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            }
-
+            float maxScore = GetMaxScore();
             if (score > maxScore)
             {
                 MessageBox.Show($"Score cannot exceed the Max Score of {maxScore}.", "Invalid Score", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string fullName = "";
+            string fullName = GetCadetFullName();
+            if (string.IsNullOrEmpty(fullName)) return;
+
+            DialogResult confirm = MessageBox.Show(
+                $"Are you sure you want to save the exam score of {score} for:\n\nCadet ID: {CadetId}\nName: {fullName}?",
+                "Confirm Save",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirm != DialogResult.Yes) return;
+
+            SaveExamScore(score);
+        }
+
+        private float GetMaxScore()
+        {
+            float maxScore = 50f;
 
             using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
             {
                 try
                 {
                     conn.Open();
-                    string nameQuery = "SELECT CONCAT(last_name, ', ', first_name, ' ', middle_name) FROM cadet_info WHERE cadet_id = @cadetId";
-                    MySqlCommand nameCmd = new MySqlCommand(nameQuery, conn);
-                    nameCmd.Parameters.AddWithValue("@cadetId", CadetId);
-                    object result = nameCmd.ExecuteScalar();
-                    fullName = result != null ? result.ToString() : "Unknown";
+                    string query = "SELECT Max_Score FROM examination WHERE Student_ID = @cadetId ORDER BY Max_Score DESC LIMIT 1";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@cadetId", CadetId);
+                        object result = cmd.ExecuteScalar();
+
+                        if (result != null && result != DBNull.Value)
+                        {
+                            maxScore = Convert.ToSingle(result);
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error fetching cadet name: " + ex.Message);
-                    return;
+                    MessageBox.Show("Failed to retrieve Max Score: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
-            DialogResult dialogResult = MessageBox.Show(
-                $"Are you sure you want to save the exam score of {score} for:\n\nCadet ID: {CadetId}\nName: {fullName}?",
-                "Confirm Save",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
+            return maxScore;
+        }
 
-            if (dialogResult != DialogResult.Yes)
-                return;
+        private string GetCadetFullName()
+        {
+            using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "SELECT CONCAT(last_name, ', ', first_name, ' ', middle_name) AS full_name FROM cadet_info WHERE cadet_id = @cadetId";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@cadetId", CadetId);
+                        object result = cmd.ExecuteScalar();
+                        return result?.ToString() ?? string.Empty;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error fetching cadet name: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return string.Empty;
+                }
+            }
+        }
 
-            using (MySqlConnection conn = Dbconnection.GetConnection("grading_db"))
+        private void SaveExamScore(float score)
+        {
+            using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
             {
                 try
                 {
                     conn.Open();
 
                     string checkQuery = "SELECT COUNT(*) FROM examination WHERE Student_ID = @cadetId";
-                    MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn);
-                    checkCmd.Parameters.AddWithValue("@cadetId", CadetId);
-                    long count = (long)checkCmd.ExecuteScalar();
-
-                    if (count > 0)
+                    using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn))
                     {
-                        string updateQuery = "UPDATE examination SET Score = @score WHERE Student_ID = @cadetId";
-                        MySqlCommand updateCmd = new MySqlCommand(updateQuery, conn);
-                        updateCmd.Parameters.AddWithValue("@score", score);
-                        updateCmd.Parameters.AddWithValue("@cadetId", CadetId);
-                        updateCmd.ExecuteNonQuery();
-                        MessageBox.Show("Exam score updated successfully.");
-                    }
-                    else
-                    {
-                        string insertQuery = "INSERT INTO examination (Student_id, Score) VALUES (@cadetId, @score)";
-                        MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn);
-                        insertCmd.Parameters.AddWithValue("@cadetId", CadetId);
-                        insertCmd.Parameters.AddWithValue("@score", score);
-                        insertCmd.ExecuteNonQuery();
-                        MessageBox.Show("Exam score added successfully.");
-                    }
+                        checkCmd.Parameters.AddWithValue("@cadetId", CadetId);
+                        long count = (long)checkCmd.ExecuteScalar();
 
-                    this.Close();
+                        string sql = count > 0
+                            ? "UPDATE examination SET Score = @score WHERE Student_ID = @cadetId"
+                            : "INSERT INTO examination (Student_id, Score) VALUES (@cadetId, @score)";
+
+                        using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@score", score);
+                            cmd.Parameters.AddWithValue("@cadetId", CadetId);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        MessageBox.Show(count > 0 ? "Exam score updated successfully." : "Exam score added successfully.");
+                        this.Close();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error saving score: " + ex.Message);
+                    MessageBox.Show("Error saving score: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         private void txt_examScore_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
             {
                 e.Handled = true;
             }
 
-            if (!char.IsControl(e.KeyChar) && txt_examScore.Text.Length >= 2)
+            if (e.KeyChar == '.' && txt_examScore.Text.Contains('.'))
             {
                 e.Handled = true;
             }

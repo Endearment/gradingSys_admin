@@ -14,14 +14,13 @@ namespace gradingSys_admin
         private static string password = "";
 
         private static string cisConnectionString = $"Server={server};Database=cis_db;Uid={uid};Pwd={password};";
-        private static string gradingConnectionString = $"Server={server};Database=grading_db;Uid={uid};Pwd={password};";
+     
 
         public static MySqlConnection GetConnection(string database)
         {
             string connectionString = database switch
             {
                 "cis_db" => cisConnectionString,
-                "grading_db" => gradingConnectionString,
                 _ => throw new ArgumentException("Invalid database name")
             };
             return new MySqlConnection(connectionString);

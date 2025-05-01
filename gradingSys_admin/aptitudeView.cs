@@ -17,7 +17,6 @@ namespace gradingSys_admin
         public aptitudeView()
         {
             InitializeComponent();
-
         }
 
         private void aptitudeData_Load(object sender, EventArgs e)
@@ -46,7 +45,9 @@ namespace gradingSys_admin
             {
                 try
                 {
-                    string query = @"SELECT ci.cadet_id, ci.last_name, ci.first_name,  ci.middle_name, ex.Score FROM cis_db.cadet_info ci LEFT JOIN grading_db.examination ex ON ci.cadet_id = ex.Student_ID";
+                    string query = @"SELECT ci.cadet_id, ci.last_name, ci.first_name, ci.middle_name, ex.Score 
+                                     FROM cis_db.cadet_info ci 
+                                     LEFT JOIN cis_db.examination ex ON ci.cadet_id = ex.Student_ID";
 
                     MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
@@ -74,7 +75,6 @@ namespace gradingSys_admin
             }
         }
 
-
         private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "editButton" && e.RowIndex >= 0)
@@ -92,7 +92,6 @@ namespace gradingSys_admin
             }
         }
 
-        // Add Score Button
         private void guna2Button1_Click_1(object sender, EventArgs e)
         {
             if (guna2DataGridView1.CurrentRow != null)
@@ -103,23 +102,23 @@ namespace gradingSys_admin
                     string cadetId = cellValue.ToString()!;
                     string currentTerm = "";
 
-                    using (MySqlConnection termConn = Dbconnection.GetConnection("grading_db"))
+                    using (MySqlConnection termConn = Dbconnection.GetConnection("cis_db"))
                     {
                         try
                         {
                             termConn.Open();
-                            string termQuery = "SELECT Term FROM examination ORDER BY Term DESC LIMIT 1";
+                            string termQuery = "SELECT term FROM examination";
                             using (MySqlCommand termCmd = new MySqlCommand(termQuery, termConn))
                             {
                                 object? termResult = termCmd.ExecuteScalar();
-                                if (termResult != null)
+                                if (termResult != null && termResult != DBNull.Value)
                                 {
                                     currentTerm = termResult.ToString()!;
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Unable to determine current term.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    return;
+                                    // Fallback default
+                                    currentTerm = "Midterm"; // Or "Finals", depending on your app's logic
                                 }
                             }
                         }
@@ -130,7 +129,7 @@ namespace gradingSys_admin
                         }
                     }
 
-                    using (MySqlConnection conn = Dbconnection.GetConnection("grading_db"))
+                    using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
                     {
                         try
                         {
@@ -161,6 +160,7 @@ namespace gradingSys_admin
                             return;
                         }
                     }
+
                     Form? mainForm = FormHelper.GetTopMostForm(this);
                     if (mainForm != null)
                     {
@@ -180,10 +180,8 @@ namespace gradingSys_admin
             {
                 MessageBox.Show("No cadet row is selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
         }
 
-        // Edit Score Button
         private void guna2Button2_Click(object sender, EventArgs e)
         {
             if (guna2DataGridView1.CurrentRow != null)
@@ -193,7 +191,6 @@ namespace gradingSys_admin
 
                 if (cellValue != null)
                 {
-                    // Check if score is null or empty
                     if (scoreValue == DBNull.Value || string.IsNullOrEmpty(scoreValue?.ToString()))
                     {
                         MessageBox.Show("This cadet has no score yet. You cannot edit.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -227,15 +224,12 @@ namespace gradingSys_admin
             }
         }
 
-
-        // View Score Button
         private void btn_gScore_Click(object sender, EventArgs e)
         {
             Form? mainForm = FormHelper.GetTopMostForm(this);
             if (mainForm != null)
             {
                 gradeView editForm = new gradeView();
-                //gradeView.CadetId = cadetId;
                 FormHelper.ShowDialogWithBackdrop(mainForm, editForm);
             }
             else
@@ -251,14 +245,14 @@ namespace gradingSys_admin
             using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
             {
                 string query = @"
-            SELECT ci.cadet_id, ci.last_name, ci.first_name, ci.middle_name, ex.Score 
-            FROM cis_db.cadet_info ci
-            LEFT JOIN grading_db.examination ex ON ci.cadet_id = ex.Student_ID
-            WHERE ci.cadet_id LIKE @search 
-               OR ci.last_name LIKE @search 
-               OR ci.first_name LIKE @search 
-               OR ci.middle_name LIKE @search 
-               OR ex.Score LIKE @search";
+                    SELECT ci.cadet_id, ci.last_name, ci.first_name, ci.middle_name, ex.Score 
+                    FROM cis_db.cadet_info ci
+                    LEFT JOIN cis_db.examination ex ON ci.cadet_id = ex.Student_ID
+                    WHERE ci.cadet_id LIKE @search 
+                       OR ci.last_name LIKE @search 
+                       OR ci.first_name LIKE @search 
+                       OR ci.middle_name LIKE @search 
+                       OR ex.Score LIKE @search";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
@@ -269,6 +263,6 @@ namespace gradingSys_admin
                     guna2DataGridView1.DataSource = dt;
                 }
             }
-        } 
+        }
     }
 }
