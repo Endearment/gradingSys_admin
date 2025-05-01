@@ -135,7 +135,6 @@
             guna2HtmlLabel1.Size = new Size(251, 83);
             guna2HtmlLabel1.TabIndex = 6;
             guna2HtmlLabel1.Text = "CADET INFOMATION";
-            guna2HtmlLabel1.Click += guna2HtmlLabel1_Click;
             // 
             // btn_viewGrade
             // 

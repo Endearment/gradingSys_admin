@@ -40,11 +40,6 @@ namespace gradingSys_admin
             }
         }
 
-
-        private void guna2ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
         private void LoadData()
         {
             using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
@@ -97,16 +92,7 @@ namespace gradingSys_admin
             }
         }
 
-        private void guna2Button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2HtmlLabel1_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        // Add Score Button
         private void guna2Button1_Click_1(object sender, EventArgs e)
         {
             if (guna2DataGridView1.CurrentRow != null)
@@ -197,13 +183,23 @@ namespace gradingSys_admin
 
         }
 
+        // Edit Score Button
         private void guna2Button2_Click(object sender, EventArgs e)
         {
             if (guna2DataGridView1.CurrentRow != null)
             {
                 object? cellValue = guna2DataGridView1.CurrentRow.Cells["cadet_id"].Value;
+                object? scoreValue = guna2DataGridView1.CurrentRow.Cells["Score"].Value;
+
                 if (cellValue != null)
                 {
+                    // Check if score is null or empty
+                    if (scoreValue == DBNull.Value || string.IsNullOrEmpty(scoreValue?.ToString()))
+                    {
+                        MessageBox.Show("This cadet has no score yet. You cannot edit.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
                     string cadetId = cellValue.ToString()!;
                     Form? mainForm = FormHelper.GetTopMostForm(this);
                     if (mainForm != null)
@@ -229,9 +225,10 @@ namespace gradingSys_admin
             {
                 MessageBox.Show("No cadet row is selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
         }
 
+
+        // View Score Button
         private void btn_gScore_Click(object sender, EventArgs e)
         {
             Form? mainForm = FormHelper.GetTopMostForm(this);
