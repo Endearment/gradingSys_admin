@@ -112,6 +112,13 @@ namespace gradingSys_admin
             int totalDemerits = haircutDemerit + uniformDemerit + makeupDemerit +
                                 earringsDemerit + facialHairDemerit + tardinessDemerit;
 
+
+            if (totalDemerits == 0)
+            {
+                MessageBox.Show("Please select at least one demerit before saving.", "No Demerits Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
                 using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
@@ -236,10 +243,20 @@ namespace gradingSys_admin
                 {
                     cmd.Parameters.AddWithValue("@studentId", cadetId);
                     object result = cmd.ExecuteScalar();
-                    int points = result != DBNull.Value ? Convert.ToInt32(result) : 0;
 
-                    guna2CircleProgressBar1.Value = points;
-                    guna2CircleProgressBar1.Text = points.ToString();
+                    int points;
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        points = Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        points = 100;
+                    }
+
+                    circularProgressBar1.Value = points;
+                    circularProgressBar1.Text = points.ToString();
                 }
             }
         }
