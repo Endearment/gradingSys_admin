@@ -77,6 +77,7 @@ namespace gradingSys_admin
         private void aptitudeEdit_Load(object sender, EventArgs e)
         {
             LoadCadetInfo();
+            UpdateAptitudePointsProgress(CadetId);
         }
 
         private void guna2CirclePictureBox1_Click(object sender, EventArgs e)
@@ -131,7 +132,7 @@ namespace gradingSys_admin
 
                         if (studentExists > 0)
                         {
-                            
+
                             string getPointsQuery = "SELECT Aptitude_Points FROM aptitude WHERE Student_ID = @studentId";
                             using (MySqlCommand getPointsCmd = new MySqlCommand(getPointsQuery, conn))
                             {
@@ -184,7 +185,7 @@ namespace gradingSys_admin
                         }
                         else
                         {
-                            
+
                             int newPoints = 100 - totalDemerits;
                             if (newPoints < 0) newPoints = 0;
 
@@ -213,6 +214,7 @@ namespace gradingSys_admin
                             }
 
                             MessageBox.Show("Data inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                             this.Close();
                         }
                     }
@@ -224,8 +226,23 @@ namespace gradingSys_admin
             }
         }
 
+        private void UpdateAptitudePointsProgress(string cadetId)
+        {
+            using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
+            {
+                conn.Open();
+                string query = "SELECT Aptitude_Points FROM aptitude WHERE Student_ID = @studentId ORDER BY Record_ID DESC LIMIT 1";
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@studentId", cadetId);
+                    object result = cmd.ExecuteScalar();
+                    int points = result != DBNull.Value ? Convert.ToInt32(result) : 0;
 
+                    guna2CircleProgressBar1.Value = points;
+                    guna2CircleProgressBar1.Text = points.ToString();
+                }
+            }
+        }
     }
-
- }
+}
 
