@@ -12,7 +12,7 @@ namespace GradingSys_SIA
         private Point dragCursorPoint;
         private Point dragFormPoint;
 
-        public sideBarPanel()
+        public sideBarPanel(string userId, string role)
         {
             InitializeComponent();
             panel2.MouseDown += new MouseEventHandler(panel2_MouseDown);
@@ -20,6 +20,15 @@ namespace GradingSys_SIA
             panel2.MouseUp += new MouseEventHandler(panel2_MouseUp);
             this.TopMost = true;
             loadform(new landingPage());
+
+            if (role == "cadet")
+            {
+                label2.Enabled = false;
+            }
+            else if (role == "instructor")
+            {
+                label2.Enabled = true;
+            }
         }
 
         private void panel2_MouseDown(object? sender, MouseEventArgs e)
@@ -96,7 +105,7 @@ namespace GradingSys_SIA
 
         private void label4_Click(object sender, EventArgs e)
         {
-           exitConfirm();
+            exitConfirm();
         }
 
         private void label3_Click(object sender, EventArgs e)
