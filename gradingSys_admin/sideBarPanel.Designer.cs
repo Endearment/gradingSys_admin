@@ -51,11 +51,11 @@
             label1.ForeColor = Color.White;
             label1.Image = (Image)resources.GetObject("label1.Image");
             label1.ImageAlign = ContentAlignment.MiddleLeft;
-            label1.Location = new Point(0, 382);
+            label1.Location = new Point(0, 389);
             label1.Name = "label1";
-            label1.Size = new Size(262, 71);
+            label1.Size = new Size(262, 58);
             label1.TabIndex = 0;
-            label1.Text = "                Cadet\r\n            Information";
+            label1.Text = "            Aptitude";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             label1.Click += label1_Click;
             // 
@@ -64,11 +64,11 @@
             label2.ForeColor = Color.White;
             label2.Image = (Image)resources.GetObject("label2.Image");
             label2.ImageAlign = ContentAlignment.MiddleLeft;
-            label2.Location = new Point(0, 464);
+            label2.Location = new Point(0, 468);
             label2.Name = "label2";
             label2.Size = new Size(262, 48);
             label2.TabIndex = 1;
-            label2.Text = "            Grade";
+            label2.Text = "            Exam / Grade";
             label2.TextAlign = ContentAlignment.MiddleLeft;
             label2.Click += label2_Click;
             // 

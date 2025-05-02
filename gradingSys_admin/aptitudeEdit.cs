@@ -112,7 +112,6 @@ namespace gradingSys_admin
             int totalDemerits = haircutDemerit + uniformDemerit + makeupDemerit +
                                 earringsDemerit + facialHairDemerit + tardinessDemerit;
 
-            // Get merits from combo boxes
             int accomplishmentMerit = int.TryParse(mrt_accomp.SelectedItem?.ToString(), out int acc) ? acc : 0;
             int touringMerit = int.TryParse(mrt_tour.SelectedItem?.ToString(), out int tour) ? tour : 0;
             int totalMerits = accomplishmentMerit + touringMerit;

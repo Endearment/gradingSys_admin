@@ -48,20 +48,16 @@ namespace GradingSys_SIA
             label13.Padding = new Padding(15, 0, 0, 0);
             label1.Padding = new Padding(50, 0, 0, 0);
             label2.Padding = new Padding(50, 0, 0, 0);
-            //label3.Padding = new Padding(50, 0, 0, 0);
             label4.Padding = new Padding(15, 0, 0, 0);
 
             label1.MouseEnter += labelFunction.Label_MouseEnter;
             label1.MouseLeave += labelFunction.Label_MouseLeave;
             label2.MouseEnter += labelFunction.Label_MouseEnter;
             label2.MouseLeave += labelFunction.Label_MouseLeave;
-            //label3.MouseEnter += labelFunction.Label_MouseEnter;
-            //label3.MouseLeave += labelFunction.Label_MouseLeave;
             label4.MouseEnter += labelFunction.Label_MouseEnter;
             label4.MouseLeave += labelFunction.Label_MouseLeave;
             label13.MouseEnter += labelFunction.Label_MouseEnter;
             label13.MouseLeave += labelFunction.Label_MouseLeave;
-            //loadform(new landingPage());
         }
 
         public void loadform(object form)
@@ -95,7 +91,7 @@ namespace GradingSys_SIA
 
         private void label2_Click(object sender, EventArgs e)
         {
-            //loadform(new attendancePage();
+            loadform(new gradeEdit());
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -105,7 +101,7 @@ namespace GradingSys_SIA
 
         private void label3_Click(object sender, EventArgs e)
         {
-            //loadform(new examView());
+
         }
 
         private void label13_Click(object sender, EventArgs e)
