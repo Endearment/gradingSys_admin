@@ -12,49 +12,41 @@ namespace gradingSys_admin
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            string enteredId = txt_username.Text.Trim();
-            string role = GetUserRole(enteredId);
+            string username = txt_username.Text.Trim();
+            string password = txt_password.Text.Trim(); 
+
+            string role = GetUserRole(username, password);
 
             if (role == "unknown")
             {
-                MessageBox.Show("Invalid ID. Please try again.");
+                MessageBox.Show("Invalid username or password. Please try again.");
                 return;
             }
 
             this.Hide();
-            sideBarPanel sideBar = new sideBarPanel(enteredId, role);
+            sideBarPanel sideBar = new sideBarPanel(username, role);
             sideBar.Show();
 
         }
 
-        private string GetUserRole(string userId)
+       private string GetUserRole(string username, string password)
         {
             using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
             {
                 conn.Open();
 
-                string cadetQuery = "SELECT cadet_id FROM cadet_info WHERE cadet_id = @id";
-                using (MySqlCommand cmd = new MySqlCommand(cadetQuery, conn))
+                string query = "SELECT role FROM users WHERE username = @username AND password = @password";
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@id", userId);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            return "cadet";
-                        }
-                    }
-                }
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.Parameters.AddWithValue("@password", password); 
 
-                string instructorQuery = "SELECT instructor_id FROM instructor_info WHERE instructor_id = @id";
-                using (MySqlCommand cmd = new MySqlCommand(instructorQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@id", userId);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        if (reader.HasRows)
+                        if (reader.Read())
                         {
-                            return "instructor";
+                            string dbRole = reader["role"].ToString();
+                            return dbRole == "CO-G1" ? "cadet" : dbRole.ToLower(); 
                         }
                     }
                 }
