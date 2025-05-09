@@ -9,11 +9,12 @@ namespace gradingSys_admin
 {
     public class Dbconnection
     {
-        private static string server = "localhost";
-        private static string uid = "root";
-        private static string password = "";
+        private static string server = "database-sia-cis.c7gskq208sgz.ap-southeast-2.rds.amazonaws.com";
+        private static string uid = " admin";
+        private static string password = "05152025CIASIA-admin";
+        private static string port = " 3306";
 
-        private static string cisConnectionString = $"Server={server};Database=cis_db;Uid={uid};Pwd={password};";
+        private static string cisConnectionString = $"Server={server};Database=cis_db;Uid={uid};Pwd={password};port={port}";
      
 
         public static MySqlConnection GetConnection(string database)
