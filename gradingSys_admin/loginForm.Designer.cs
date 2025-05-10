@@ -32,6 +32,8 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(loginForm));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -46,7 +48,7 @@
             txt_password = new Guna.UI2.WinForms.Guna2TextBox();
             guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            btn_close = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            close_btn = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -121,7 +123,7 @@
             // 
             // txt_username
             // 
-            txt_username.CustomizableEdges = customizableEdges5;
+            txt_username.CustomizableEdges = customizableEdges7;
             txt_username.DefaultText = "";
             txt_username.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             txt_username.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -135,14 +137,14 @@
             txt_username.Name = "txt_username";
             txt_username.PlaceholderText = "";
             txt_username.SelectedText = "";
-            txt_username.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            txt_username.ShadowDecoration.CustomizableEdges = customizableEdges8;
             txt_username.Size = new Size(167, 35);
             txt_username.TabIndex = 11;
             // 
             // txt_password
             // 
             txt_password.AllowDrop = true;
-            txt_password.CustomizableEdges = customizableEdges3;
+            txt_password.CustomizableEdges = customizableEdges5;
             txt_password.DefaultText = "";
             txt_password.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             txt_password.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -157,7 +159,7 @@
             txt_password.PasswordChar = '*';
             txt_password.PlaceholderText = "";
             txt_password.SelectedText = "";
-            txt_password.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            txt_password.ShadowDecoration.CustomizableEdges = customizableEdges6;
             txt_password.Size = new Size(167, 35);
             txt_password.TabIndex = 12;
             // 
@@ -185,18 +187,26 @@
             guna2HtmlLabel1.Text = "Username:";
             guna2HtmlLabel1.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // btn_close
+            // close_btn
             // 
-            btn_close.AutoSize = false;
-            btn_close.BackColor = Color.Transparent;
-            btn_close.Font = new Font("Segoe Print", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_close.Location = new Point(819, 2);
-            btn_close.Name = "btn_close";
-            btn_close.Size = new Size(43, 27);
-            btn_close.TabIndex = 16;
-            btn_close.Text = "X";
-            btn_close.TextAlignment = ContentAlignment.MiddleCenter;
-            btn_close.Click += btn_close_Click;
+            close_btn.BorderRadius = 20;
+            close_btn.CustomizableEdges = customizableEdges3;
+            close_btn.DisabledState.BorderColor = Color.DarkGray;
+            close_btn.DisabledState.CustomBorderColor = Color.DarkGray;
+            close_btn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            close_btn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            close_btn.FillColor = SystemColors.Control;
+            close_btn.Font = new Font("Segoe UI", 9F);
+            close_btn.ForeColor = Color.Black;
+            close_btn.HoverState.FillColor = Color.FromArgb(255, 128, 128);
+            close_btn.Location = new Point(818, 0);
+            close_btn.Name = "close_btn";
+            close_btn.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            close_btn.Size = new Size(81, 39);
+            close_btn.TabIndex = 17;
+            close_btn.Text = " ✘";
+            close_btn.TextAlign = HorizontalAlignment.Left;
+            close_btn.Click += close_btn_Click;
             // 
             // loginForm
             // 
@@ -204,7 +214,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(873, 508);
-            Controls.Add(btn_close);
+            Controls.Add(close_btn);
             Controls.Add(guna2HtmlLabel1);
             Controls.Add(guna2HtmlLabel2);
             Controls.Add(txt_password);
@@ -235,6 +245,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
         private Guna.UI2.WinForms.Guna2TextBox txt_password;
         private Guna.UI2.WinForms.Guna2TextBox txt_username;
-        private Guna.UI2.WinForms.Guna2HtmlLabel btn_close;
+        private Guna.UI2.WinForms.Guna2Button close_btn;
     }
 }

@@ -38,6 +38,8 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
             btn_viewGrade = new Guna.UI2.WinForms.Guna2Button();
             btn_edtScore = new Guna.UI2.WinForms.Guna2Button();
@@ -46,6 +48,7 @@
             textBoxSearch = new TextBox();
             lbl_cadetList = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            btn_formScore = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)guna2DataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -208,12 +211,31 @@
             guna2HtmlLabel1.TabIndex = 22;
             guna2HtmlLabel1.Text = "EXAM / GRADE PAGE";
             // 
+            // btn_formScore
+            // 
+            btn_formScore.CustomizableEdges = customizableEdges7;
+            btn_formScore.DisabledState.BorderColor = Color.DarkGray;
+            btn_formScore.DisabledState.CustomBorderColor = Color.DarkGray;
+            btn_formScore.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btn_formScore.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btn_formScore.FillColor = Color.FromArgb(80, 180, 230);
+            btn_formScore.Font = new Font("Segoe UI", 9F);
+            btn_formScore.ForeColor = Color.White;
+            btn_formScore.Location = new Point(202, 640);
+            btn_formScore.Name = "btn_formScore";
+            btn_formScore.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btn_formScore.Size = new Size(184, 46);
+            btn_formScore.TabIndex = 23;
+            btn_formScore.Text = "Score .csv";
+            btn_formScore.Click += btn_formScore_Click;
+            // 
             // gradeEdit
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(935, 698);
+            Controls.Add(btn_formScore);
             Controls.Add(guna2HtmlLabel1);
             Controls.Add(guna2HtmlLabel2);
             Controls.Add(textBoxSearch);
@@ -241,5 +263,6 @@
         private TextBox textBoxSearch;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbl_cadetList;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
+        private Guna.UI2.WinForms.Guna2Button btn_formScore;
     }
 }

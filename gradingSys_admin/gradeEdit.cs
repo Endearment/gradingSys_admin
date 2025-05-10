@@ -9,6 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System;
+using System.IO;
+using System.Windows.Forms;
+
 namespace gradingSys_admin
 {
     public partial class gradeEdit : Form
@@ -21,6 +25,8 @@ namespace gradingSys_admin
         private void gradeEdit_Load(object sender, EventArgs e)
         {
             LoadData();
+            guna2DataGridView1.RowPrePaint += guna2DataGridView1_RowPrePaint;
+
         }
         private void LoadData()
         {
@@ -190,6 +196,35 @@ namespace gradingSys_admin
             }
         }
 
+
+        private void guna2DataGridView1_RowPrePaint(object? sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            var grid = sender as DataGridView;
+            if (grid == null) return;
+
+            DataGridViewRow row = grid.Rows[e.RowIndex];
+            object? scoreValue = row.Cells["Score"].Value;
+
+            if (scoreValue != null && scoreValue != DBNull.Value)
+            {
+                if (int.TryParse(scoreValue.ToString(), out int score))
+                {
+                    if (score <= 25)
+                    {
+                        row.DefaultCellStyle.BackColor = Color.Red;
+                        row.DefaultCellStyle.ForeColor = Color.White;
+                    }
+                    else
+                    {
+                        row.DefaultCellStyle.BackColor = grid.DefaultCellStyle.BackColor;
+                        row.DefaultCellStyle.ForeColor = grid.DefaultCellStyle.ForeColor;
+                    }
+                }
+            }
+        }
+
+
+
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
             string searchText = textBoxSearch.Text;
@@ -213,6 +248,131 @@ namespace gradingSys_admin
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     guna2DataGridView1.DataSource = dt;
+                }
+            }
+        }
+
+        private void btn_formScore_Click(object sender, EventArgs e)
+        {
+            string connectionString = "server=database-sia-cis.c7gskq208sgz.ap-southeast-2.rds.amazonaws.com;user=admin;password=05152025CIASIA-admin;database=cis_db;";
+
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+            openFileDialog.Title = "Select a CSV File";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+
+                try
+                {
+                    string[] lines = File.ReadAllLines(filePath);
+
+                    if (lines.Length <= 1)
+                    {
+                        MessageBox.Show("CSV file is empty or missing data.");
+                        return;
+                    }
+
+                    string[] headers = lines[0].Split(',');
+                    int idIndex = Array.IndexOf(headers, "ID_Student/Cadet");
+                    int scoreIndex = Array.IndexOf(headers, "Score");
+
+                    if (idIndex == -1 || scoreIndex == -1)
+                    {
+                        MessageBox.Show("CSV file missing required columns.");
+                        return;
+                    }
+
+                    using (MySqlConnection conn = new MySqlConnection(connectionString))
+                    {
+                        conn.Open();
+                        using (MySqlTransaction transaction = conn.BeginTransaction())
+                        {
+                            try
+                            {
+                                int updatedCount = 0;
+                                int skippedCount = 0;
+
+                                int currentMonth = DateTime.Now.Month;
+                                bool isMidterm = currentMonth >= 1 && currentMonth <= 3;
+                                bool isFinals = currentMonth >= 4 && currentMonth <= 5;
+
+                                for (int i = 1; i < lines.Length; i++)
+                                {
+                                    string[] data = lines[i].Split(',');
+
+                                    if (data.Length <= Math.Max(idIndex, scoreIndex))
+                                        continue;
+
+                                    string studentId = data[idIndex].Trim();
+                                    string rawScore = data[scoreIndex].Trim();
+
+                                    string[] scoreParts = rawScore.Split('/');
+                                    if (scoreParts.Length == 0 || !float.TryParse(scoreParts[0].Trim(), out float score))
+                                        continue;
+
+                                    string checkQuery = "SELECT midterm_exam_score, finals_exam_score FROM examination WHERE Student_Id = @StudentId LIMIT 1";
+                                    using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn, transaction))
+                                    {
+                                        checkCmd.Parameters.Clear();
+                                        checkCmd.Parameters.AddWithValue("@StudentId", studentId);
+
+                                        using (var reader = checkCmd.ExecuteReader())
+                                        {
+                                            if (!reader.Read())
+                                            {
+                                                skippedCount++;
+                                                continue;
+                                            }
+
+                                            float midtermScore = reader["midterm_exam_score"] != DBNull.Value ? Convert.ToSingle(reader["midterm_exam_score"]) : 0;
+                                            float finalsScore = reader["finals_exam_score"] != DBNull.Value ? Convert.ToSingle(reader["finals_exam_score"]) : 0;
+
+                                            bool skip = (isMidterm && midtermScore > 0) || (isFinals && finalsScore > 0);
+                                            if (skip)
+                                            {
+                                                skippedCount++;
+                                                continue;
+                                            }
+                                        }
+                                    }
+
+                                    string updateQuery = "UPDATE examination SET ";
+                                    if (isMidterm)
+                                        updateQuery += "midterm_exam_score = @Score ";
+                                    else if (isFinals)
+                                        updateQuery += "finals_exam_score = @Score ";
+                                    else
+                                        continue;
+
+                                    updateQuery += "WHERE Student_Id = @StudentId";
+
+                                    using (MySqlCommand updateCmd = new MySqlCommand(updateQuery, conn, transaction))
+                                    {
+                                        updateCmd.Parameters.Clear();
+                                        updateCmd.Parameters.AddWithValue("@Score", score);
+                                        updateCmd.Parameters.AddWithValue("@StudentId", studentId);
+                                        updateCmd.ExecuteNonQuery();
+                                        updatedCount++;
+                                    }
+                                }
+
+                                transaction.Commit();
+                                MessageBox.Show($"✅ Updated {updatedCount} student scores.\n⚠️ Skipped {skippedCount} already existing scores.");
+                            }
+                            catch (Exception ex)
+                            {
+                                transaction.Rollback();
+                                MessageBox.Show("Database Error: " + ex.Message);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("File Error: " + ex.Message);
                 }
             }
         }

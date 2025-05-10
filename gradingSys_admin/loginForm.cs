@@ -13,7 +13,7 @@ namespace gradingSys_admin
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             string username = txt_username.Text.Trim();
-            string password = txt_password.Text.Trim(); 
+            string password = txt_password.Text.Trim();
 
             string role = GetUserRole(username, password);
 
@@ -29,7 +29,7 @@ namespace gradingSys_admin
 
         }
 
-       private string GetUserRole(string username, string password)
+        private string GetUserRole(string username, string password)
         {
             using (MySqlConnection conn = Dbconnection.GetConnection("cis_db"))
             {
@@ -39,14 +39,14 @@ namespace gradingSys_admin
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@username", username);
-                    cmd.Parameters.AddWithValue("@password", password); 
+                    cmd.Parameters.AddWithValue("@password", password);
 
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
                             string dbRole = reader["role"].ToString();
-                            return dbRole == "CO-G1" ? "cadet" : dbRole.ToLower(); 
+                            return dbRole == "CO-G1" ? "cadet" : dbRole.ToLower();
                         }
                     }
                 }
@@ -55,8 +55,7 @@ namespace gradingSys_admin
             return "unknown";
         }
 
-
-        private void btn_close_Click(object sender, EventArgs e)
+        private void close_btn_Click(object sender, EventArgs e)
         {
             this.Close();
         }
