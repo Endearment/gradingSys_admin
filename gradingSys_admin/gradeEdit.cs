@@ -8,10 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using System;
 using System.IO;
-using System.Windows.Forms;
 
 namespace gradingSys_admin
 {
@@ -53,17 +51,44 @@ namespace gradingSys_admin
 
         private void btn_viewGrade_Click(object sender, EventArgs e)
         {
-            Form? mainForm = FormHelper.GetTopMostForm(this);
-            if (mainForm != null)
+            if (guna2DataGridView1.CurrentRow != null)
             {
-                gradeView editForm = new gradeView();
-                FormHelper.ShowDialogWithBackdrop(mainForm, editForm);
+                object? cadetId = guna2DataGridView1.CurrentRow.Cells["cadet_id"].Value;
+                object? firstName = guna2DataGridView1.CurrentRow.Cells["first_name"].Value;
+                object? middleName = guna2DataGridView1.CurrentRow.Cells["middle_name"].Value;
+                object? lastName = guna2DataGridView1.CurrentRow.Cells["last_name"].Value;
+
+                if (cadetId != null && firstName != null && middleName != null && lastName != null)
+                {
+                    Form? mainForm = FormHelper.GetTopMostForm(this);
+                    if (mainForm != null)
+                    {
+                        gradeView editForm = new gradeView
+                        {
+                            CadetId = cadetId.ToString()!,
+                            FirstName = firstName.ToString()!,
+                            MiddleName = middleName.ToString()!,
+                            LastName = lastName.ToString()!
+                        };
+
+                        FormHelper.ShowDialogWithBackdrop(mainForm, editForm);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to determine the top-most form.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select a cadet with complete information.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             else
             {
-                MessageBox.Show("Unable to determine the top-most form.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No cadet row is selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
 
         private void btn_edtScore_Click(object sender, EventArgs e)
         {

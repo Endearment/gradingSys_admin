@@ -34,180 +34,258 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            guna2CircleProgressBar1 = new Guna.UI2.WinForms.Guna2CircleProgressBar();
-            guna2CircleProgressBar2 = new Guna.UI2.WinForms.Guna2CircleProgressBar();
-            guna2CircleProgressBar3 = new Guna.UI2.WinForms.Guna2CircleProgressBar();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             lbl_studName = new Guna.UI2.WinForms.Guna2HtmlLabel();
             lbl_studNum = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2CircleProgressBar4 = new Guna.UI2.WinForms.Guna2CircleProgressBar();
-            guna2CircleProgressBar5 = new Guna.UI2.WinForms.Guna2CircleProgressBar();
-            guna2CircleProgressBar6 = new Guna.UI2.WinForms.Guna2CircleProgressBar();
-            guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            circularProgressBar1 = new GradingSys_SIA.CircularProgressBar();
+            guna2CustomGradientPanel1 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            label1 = new Label();
+            guna2CustomGradientPanel2 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            label2 = new Label();
+            circularProgressBar2 = new GradingSys_SIA.CircularProgressBar();
+            guna2CustomGradientPanel3 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            label3 = new Label();
+            circularProgressBar3 = new GradingSys_SIA.CircularProgressBar();
+            guna2CustomGradientPanel4 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            label4 = new Label();
+            circularProgressBar4 = new GradingSys_SIA.CircularProgressBar();
+            guna2CustomGradientPanel1.SuspendLayout();
+            guna2CustomGradientPanel2.SuspendLayout();
+            guna2CustomGradientPanel3.SuspendLayout();
+            guna2CustomGradientPanel4.SuspendLayout();
             SuspendLayout();
-            // 
-            // guna2CircleProgressBar1
-            // 
-            guna2CircleProgressBar1.FillColor = Color.FromArgb(200, 213, 218, 223);
-            guna2CircleProgressBar1.Font = new Font("Segoe UI", 12F);
-            guna2CircleProgressBar1.ForeColor = Color.White;
-            guna2CircleProgressBar1.Location = new Point(695, 115);
-            guna2CircleProgressBar1.Minimum = 0;
-            guna2CircleProgressBar1.Name = "guna2CircleProgressBar1";
-            guna2CircleProgressBar1.ShadowDecoration.CustomizableEdges = customizableEdges1;
-            guna2CircleProgressBar1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CircleProgressBar1.Size = new Size(158, 158);
-            guna2CircleProgressBar1.TabIndex = 0;
-            guna2CircleProgressBar1.Text = "guna2CircleProgressBar1";
-            guna2CircleProgressBar1.Value = 100;
-            // 
-            // guna2CircleProgressBar2
-            // 
-            guna2CircleProgressBar2.FillColor = Color.FromArgb(200, 213, 218, 223);
-            guna2CircleProgressBar2.Font = new Font("Segoe UI", 12F);
-            guna2CircleProgressBar2.ForeColor = Color.White;
-            guna2CircleProgressBar2.Location = new Point(528, 115);
-            guna2CircleProgressBar2.Minimum = 0;
-            guna2CircleProgressBar2.Name = "guna2CircleProgressBar2";
-            guna2CircleProgressBar2.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2CircleProgressBar2.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CircleProgressBar2.Size = new Size(158, 158);
-            guna2CircleProgressBar2.TabIndex = 1;
-            guna2CircleProgressBar2.Text = "guna2CircleProgressBar2";
-            // 
-            // guna2CircleProgressBar3
-            // 
-            guna2CircleProgressBar3.FillColor = Color.FromArgb(200, 213, 218, 223);
-            guna2CircleProgressBar3.Font = new Font("Segoe UI", 12F);
-            guna2CircleProgressBar3.ForeColor = Color.White;
-            guna2CircleProgressBar3.Location = new Point(367, 115);
-            guna2CircleProgressBar3.Minimum = 0;
-            guna2CircleProgressBar3.Name = "guna2CircleProgressBar3";
-            guna2CircleProgressBar3.ShadowDecoration.CustomizableEdges = customizableEdges3;
-            guna2CircleProgressBar3.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CircleProgressBar3.Size = new Size(158, 158);
-            guna2CircleProgressBar3.TabIndex = 1;
-            guna2CircleProgressBar3.Text = "guna2CircleProgressBar3";
-            guna2CircleProgressBar3.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
             // 
             // lbl_studName
             // 
             lbl_studName.BackColor = Color.Transparent;
+            lbl_studName.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_studName.Location = new Point(49, 41);
             lbl_studName.Name = "lbl_studName";
-            lbl_studName.Size = new Size(178, 27);
+            lbl_studName.Size = new Size(253, 34);
             lbl_studName.TabIndex = 2;
             lbl_studName.Text = "-------------------------";
             // 
             // lbl_studNum
             // 
             lbl_studNum.BackColor = Color.Transparent;
-            lbl_studNum.Location = new Point(49, 74);
+            lbl_studNum.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbl_studNum.Location = new Point(49, 81);
             lbl_studNum.Name = "lbl_studNum";
-            lbl_studNum.Size = new Size(136, 27);
+            lbl_studNum.Size = new Size(174, 32);
             lbl_studNum.TabIndex = 3;
             lbl_studNum.Text = "-------------------";
             // 
-            // guna2CircleProgressBar4
+            // circularProgressBar1
             // 
-            guna2CircleProgressBar4.FillColor = Color.FromArgb(200, 213, 218, 223);
-            guna2CircleProgressBar4.Font = new Font("Segoe UI", 12F);
-            guna2CircleProgressBar4.ForeColor = Color.White;
-            guna2CircleProgressBar4.Location = new Point(367, 368);
-            guna2CircleProgressBar4.Minimum = 0;
-            guna2CircleProgressBar4.Name = "guna2CircleProgressBar4";
-            guna2CircleProgressBar4.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            guna2CircleProgressBar4.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CircleProgressBar4.Size = new Size(158, 158);
-            guna2CircleProgressBar4.TabIndex = 2;
-            guna2CircleProgressBar4.Text = "guna2CircleProgressBar4";
+            circularProgressBar1.BackColor = SystemColors.Control;
+            circularProgressBar1.BarColor1 = Color.Orange;
+            circularProgressBar1.BarColor2 = Color.Orange;
+            circularProgressBar1.BarWidth = 14F;
+            circularProgressBar1.Font = new Font("Segoe UI", 15F);
+            circularProgressBar1.ForeColor = Color.DimGray;
+            circularProgressBar1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            circularProgressBar1.LineColor = Color.DimGray;
+            circularProgressBar1.LineWidth = 1;
+            circularProgressBar1.Location = new Point(10, 61);
+            circularProgressBar1.Maximum = 100L;
+            circularProgressBar1.MinimumSize = new Size(100, 100);
+            circularProgressBar1.Name = "circularProgressBar1";
+            circularProgressBar1.ProgressShape = GradingSys_SIA.CircularProgressBar._ProgressShape.Flat;
+            circularProgressBar1.Size = new Size(195, 195);
+            circularProgressBar1.TabIndex = 4;
+            circularProgressBar1.Text = "57";
+            circularProgressBar1.TextMode = GradingSys_SIA.CircularProgressBar._TextMode.Percentage;
+            circularProgressBar1.Value = 57L;
             // 
-            // guna2CircleProgressBar5
+            // guna2CustomGradientPanel1
             // 
-            guna2CircleProgressBar5.FillColor = Color.FromArgb(200, 213, 218, 223);
-            guna2CircleProgressBar5.Font = new Font("Segoe UI", 12F);
-            guna2CircleProgressBar5.ForeColor = Color.White;
-            guna2CircleProgressBar5.Location = new Point(531, 368);
-            guna2CircleProgressBar5.Minimum = 0;
-            guna2CircleProgressBar5.Name = "guna2CircleProgressBar5";
-            guna2CircleProgressBar5.ShadowDecoration.CustomizableEdges = customizableEdges5;
-            guna2CircleProgressBar5.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CircleProgressBar5.Size = new Size(158, 158);
-            guna2CircleProgressBar5.TabIndex = 2;
-            guna2CircleProgressBar5.Text = "guna2CircleProgressBar5";
+            guna2CustomGradientPanel1.Controls.Add(label1);
+            guna2CustomGradientPanel1.Controls.Add(circularProgressBar1);
+            guna2CustomGradientPanel1.CustomizableEdges = customizableEdges1;
+            guna2CustomGradientPanel1.Location = new Point(12, 194);
+            guna2CustomGradientPanel1.Name = "guna2CustomGradientPanel1";
+            guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            guna2CustomGradientPanel1.Size = new Size(216, 300);
+            guna2CustomGradientPanel1.TabIndex = 8;
             // 
-            // guna2CircleProgressBar6
+            // label1
             // 
-            guna2CircleProgressBar6.FillColor = Color.FromArgb(200, 213, 218, 223);
-            guna2CircleProgressBar6.Font = new Font("Segoe UI", 12F);
-            guna2CircleProgressBar6.ForeColor = Color.White;
-            guna2CircleProgressBar6.Location = new Point(695, 368);
-            guna2CircleProgressBar6.Minimum = 0;
-            guna2CircleProgressBar6.Name = "guna2CircleProgressBar6";
-            guna2CircleProgressBar6.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2CircleProgressBar6.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CircleProgressBar6.Size = new Size(158, 158);
-            guna2CircleProgressBar6.TabIndex = 4;
-            guna2CircleProgressBar6.Text = "guna2CircleProgressBar6";
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label1.Location = new Point(10, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(195, 38);
+            label1.TabIndex = 5;
+            label1.Text = "APTITUDE";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // guna2HtmlLabel1
+            // guna2CustomGradientPanel2
             // 
-            guna2HtmlLabel1.BackColor = Color.Transparent;
-            guna2HtmlLabel1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            guna2HtmlLabel1.Location = new Point(553, 53);
-            guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            guna2HtmlLabel1.Size = new Size(107, 32);
-            guna2HtmlLabel1.TabIndex = 5;
-            guna2HtmlLabel1.Text = "MIDTERM";
-            guna2HtmlLabel1.TextAlignment = ContentAlignment.MiddleCenter;
-            guna2HtmlLabel1.Click += guna2HtmlLabel1_Click;
+            guna2CustomGradientPanel2.Controls.Add(label2);
+            guna2CustomGradientPanel2.Controls.Add(circularProgressBar2);
+            guna2CustomGradientPanel2.CustomizableEdges = customizableEdges3;
+            guna2CustomGradientPanel2.Location = new Point(234, 194);
+            guna2CustomGradientPanel2.Name = "guna2CustomGradientPanel2";
+            guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            guna2CustomGradientPanel2.Size = new Size(216, 300);
+            guna2CustomGradientPanel2.TabIndex = 9;
             // 
-            // guna2HtmlLabel2
+            // label2
             // 
-            guna2HtmlLabel2.BackColor = Color.Transparent;
-            guna2HtmlLabel2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            guna2HtmlLabel2.Location = new Point(569, 316);
-            guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            guna2HtmlLabel2.Size = new Size(76, 32);
-            guna2HtmlLabel2.TabIndex = 6;
-            guna2HtmlLabel2.Text = "FINALS";
-            guna2HtmlLabel2.TextAlignment = ContentAlignment.MiddleCenter;
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label2.Location = new Point(10, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(195, 38);
+            label2.TabIndex = 5;
+            label2.Text = "ATTENDANCE";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // circularProgressBar2
+            // 
+            circularProgressBar2.BackColor = SystemColors.Control;
+            circularProgressBar2.BarColor1 = Color.Orange;
+            circularProgressBar2.BarColor2 = Color.Orange;
+            circularProgressBar2.BarWidth = 14F;
+            circularProgressBar2.Font = new Font("Segoe UI", 15F);
+            circularProgressBar2.ForeColor = Color.DimGray;
+            circularProgressBar2.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            circularProgressBar2.LineColor = Color.DimGray;
+            circularProgressBar2.LineWidth = 1;
+            circularProgressBar2.Location = new Point(10, 61);
+            circularProgressBar2.Maximum = 100L;
+            circularProgressBar2.MinimumSize = new Size(100, 100);
+            circularProgressBar2.Name = "circularProgressBar2";
+            circularProgressBar2.ProgressShape = GradingSys_SIA.CircularProgressBar._ProgressShape.Flat;
+            circularProgressBar2.Size = new Size(195, 195);
+            circularProgressBar2.TabIndex = 4;
+            circularProgressBar2.Text = "57";
+            circularProgressBar2.TextMode = GradingSys_SIA.CircularProgressBar._TextMode.Percentage;
+            circularProgressBar2.Value = 57L;
+            // 
+            // guna2CustomGradientPanel3
+            // 
+            guna2CustomGradientPanel3.Controls.Add(label3);
+            guna2CustomGradientPanel3.Controls.Add(circularProgressBar3);
+            guna2CustomGradientPanel3.CustomizableEdges = customizableEdges5;
+            guna2CustomGradientPanel3.Location = new Point(456, 194);
+            guna2CustomGradientPanel3.Name = "guna2CustomGradientPanel3";
+            guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            guna2CustomGradientPanel3.Size = new Size(216, 300);
+            guna2CustomGradientPanel3.TabIndex = 9;
+            // 
+            // label3
+            // 
+            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label3.Location = new Point(10, 9);
+            label3.Name = "label3";
+            label3.Size = new Size(195, 38);
+            label3.TabIndex = 5;
+            label3.Text = "EXAM";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // circularProgressBar3
+            // 
+            circularProgressBar3.BackColor = SystemColors.Control;
+            circularProgressBar3.BarColor1 = Color.Orange;
+            circularProgressBar3.BarColor2 = Color.Orange;
+            circularProgressBar3.BarWidth = 14F;
+            circularProgressBar3.Font = new Font("Segoe UI", 15F);
+            circularProgressBar3.ForeColor = Color.DimGray;
+            circularProgressBar3.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            circularProgressBar3.LineColor = Color.DimGray;
+            circularProgressBar3.LineWidth = 1;
+            circularProgressBar3.Location = new Point(10, 61);
+            circularProgressBar3.Maximum = 100L;
+            circularProgressBar3.MinimumSize = new Size(100, 100);
+            circularProgressBar3.Name = "circularProgressBar3";
+            circularProgressBar3.ProgressShape = GradingSys_SIA.CircularProgressBar._ProgressShape.Flat;
+            circularProgressBar3.Size = new Size(195, 195);
+            circularProgressBar3.TabIndex = 4;
+            circularProgressBar3.Text = "57";
+            circularProgressBar3.TextMode = GradingSys_SIA.CircularProgressBar._TextMode.Percentage;
+            circularProgressBar3.Value = 57L;
+            // 
+            // guna2CustomGradientPanel4
+            // 
+            guna2CustomGradientPanel4.Controls.Add(label4);
+            guna2CustomGradientPanel4.Controls.Add(circularProgressBar4);
+            guna2CustomGradientPanel4.CustomizableEdges = customizableEdges7;
+            guna2CustomGradientPanel4.Location = new Point(678, 194);
+            guna2CustomGradientPanel4.Name = "guna2CustomGradientPanel4";
+            guna2CustomGradientPanel4.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            guna2CustomGradientPanel4.Size = new Size(216, 300);
+            guna2CustomGradientPanel4.TabIndex = 9;
+            // 
+            // label4
+            // 
+            label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label4.Location = new Point(10, 9);
+            label4.Name = "label4";
+            label4.Size = new Size(195, 38);
+            label4.TabIndex = 5;
+            label4.Text = "OVER ALL GRADE";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // circularProgressBar4
+            // 
+            circularProgressBar4.BackColor = SystemColors.Control;
+            circularProgressBar4.BarColor1 = Color.Orange;
+            circularProgressBar4.BarColor2 = Color.Orange;
+            circularProgressBar4.BarWidth = 14F;
+            circularProgressBar4.Font = new Font("Segoe UI", 15F);
+            circularProgressBar4.ForeColor = Color.DimGray;
+            circularProgressBar4.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            circularProgressBar4.LineColor = Color.DimGray;
+            circularProgressBar4.LineWidth = 1;
+            circularProgressBar4.Location = new Point(10, 61);
+            circularProgressBar4.Maximum = 100L;
+            circularProgressBar4.MinimumSize = new Size(100, 100);
+            circularProgressBar4.Name = "circularProgressBar4";
+            circularProgressBar4.ProgressShape = GradingSys_SIA.CircularProgressBar._ProgressShape.Flat;
+            circularProgressBar4.Size = new Size(195, 195);
+            circularProgressBar4.TabIndex = 4;
+            circularProgressBar4.Text = "57";
+            circularProgressBar4.TextMode = GradingSys_SIA.CircularProgressBar._TextMode.Percentage;
+            circularProgressBar4.Value = 57L;
             // 
             // gradeView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(919, 592);
-            Controls.Add(guna2HtmlLabel2);
-            Controls.Add(guna2HtmlLabel1);
-            Controls.Add(guna2CircleProgressBar6);
-            Controls.Add(guna2CircleProgressBar5);
-            Controls.Add(guna2CircleProgressBar4);
+            ClientSize = new Size(906, 592);
+            Controls.Add(guna2CustomGradientPanel4);
+            Controls.Add(guna2CustomGradientPanel3);
+            Controls.Add(guna2CustomGradientPanel2);
+            Controls.Add(guna2CustomGradientPanel1);
             Controls.Add(lbl_studNum);
             Controls.Add(lbl_studName);
-            Controls.Add(guna2CircleProgressBar3);
-            Controls.Add(guna2CircleProgressBar2);
-            Controls.Add(guna2CircleProgressBar1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "gradeView";
             Text = "grade";
             TopMost = true;
             Load += gradeView_Load;
+            guna2CustomGradientPanel1.ResumeLayout(false);
+            guna2CustomGradientPanel2.ResumeLayout(false);
+            guna2CustomGradientPanel3.ResumeLayout(false);
+            guna2CustomGradientPanel4.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Guna.UI2.WinForms.Guna2CircleProgressBar guna2CircleProgressBar1;
-        private Guna.UI2.WinForms.Guna2CircleProgressBar guna2CircleProgressBar2;
-        private Guna.UI2.WinForms.Guna2CircleProgressBar guna2CircleProgressBar3;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbl_studName;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbl_studNum;
-        private Guna.UI2.WinForms.Guna2CircleProgressBar guna2CircleProgressBar4;
-        private Guna.UI2.WinForms.Guna2CircleProgressBar guna2CircleProgressBar5;
-        private Guna.UI2.WinForms.Guna2CircleProgressBar guna2CircleProgressBar6;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
+        private GradingSys_SIA.CircularProgressBar circularProgressBar1;
+        private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel1;
+        private Label label1;
+        private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel2;
+        private Label label2;
+        private GradingSys_SIA.CircularProgressBar circularProgressBar2;
+        private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel3;
+        private Label label3;
+        private GradingSys_SIA.CircularProgressBar circularProgressBar3;
+        private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel4;
+        private Label label4;
+        private GradingSys_SIA.CircularProgressBar circularProgressBar4;
     }
 }
